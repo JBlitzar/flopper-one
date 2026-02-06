@@ -4000,7 +4000,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "ESP32_30pin"
+		(property "Footprint" "wroom:MODULE_DEVKIT_V1_ESP32-WROOM-32"
 			(at 156.21 89.5349 0)
 			(effects
 				(font
