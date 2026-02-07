@@ -3117,7 +3117,7 @@
 		)
 		(uuid "6afb5b37-4f9e-4536-b040-c8760e5be121")
 	)
-	(label "vcc"
+	(label "VCC"
 		(at 147.32 72.39 0)
 		(effects
 			(font
@@ -4504,7 +4504,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_1.00mm:PinHeader_1x07_P1.00mm_Vertical"
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x07_P2.54mm_Vertical"
 			(at 63.5 102.87 0)
 			(effects
 				(font
@@ -4857,7 +4857,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_1.00mm:PinHeader_1x04_P1.00mm_Vertical"
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical"
 			(at 63.5 77.47 0)
 			(effects
 				(font
