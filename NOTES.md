@@ -9,3 +9,4 @@ need: IR, NFC, RFID (wifi + bt builtin)
 - Buttons: 5x https://www.sager.com/product/b3fs-1000-omron-electronic-components/90948
 - power for charging: ??
 - header pins: 1x4 (already own)
+- passives: two resistors (1x1kΩ, 1x(47-100)Ω) and one 2n2219 transistor
