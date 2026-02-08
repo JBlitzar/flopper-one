@@ -35,11 +35,11 @@ For NFC/RFID, I opted for the PN532 module. I breifly entertained the idea of us
 >
 > At this point it's cheaper AND smaller to just use the module. So that's what I did
 
-Then I thought it'd be fun to add power management. _"fun."_ If only it was simple like the xiao! I added the TP4056 IC because I was feeling fancy. I asked on slack, and it turns out you need a boost converter. To get your 3.7v battery up to 5v... so that it can go back down to 3v. I used a module for the boost converter. But I still got to add fun charging status LEDs! Also I got the "opportunity" to google translate Chinese datasheets.
+Then I thought it'd be fun to add power management. _"fun."_ If only it was simple [like the xiao](https://wiki.seeedstudio.com/xiao_nrf54l15_sense_getting_started/#battery-powered-board)! I added the TP4056 IC because I was feeling fancy. I asked on slack, and it turns out you need a boost converter. To get your 3.7v battery up to 5v... so that it can go back down to 3.3v. I used a module for the boost converter. But I still got to add fun charging status LEDs! Also I got the "opportunity" to google translate Chinese datasheets.
 
 <img src="docs/tp4056.png" width="30%">
 
-I also discovered some... interesting hacks like how the VIN pin on the esp [is actually 5v out](https://esp32.com/viewtopic.php?t=11904) when the usb is plugged in. Meaning we can charge from VIN and then discharge also to VIN.
+I also discovered some... interesting hacks like how the VIN pin on the esp [is actually 5v out](https://esp32.com/viewtopic.php?t=11904) when the usb is plugged in. Meaning we can charge from VIN... and then later discharge also to VIN.
 
 I added a physical switch to prevent backflow. So congratulations, users are now trusted with power supply logic!
 
