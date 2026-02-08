@@ -29,13 +29,17 @@ IR is incredibly easy. It's literally an LED (with some passives sprinkled in), 
 
 For NFC/RFID, I opted for the PN532 module. I breifly entertained the idea of using the bare PN532 chip and fully integrating it, but the [datasheet](https://www.nxp.com/docs/en/nxp/data-sheets/PN532_C1.pdf) is 222 pages long and the application circuit (page 212, figure 51) seems pretty involved if I do say so myself.
 
-<img src="docs/nfc.png" width="50%">
+<img src="docs/nfc.png" width="30%">
 
 > _incomplete nfc circuit... yeah its pretty complicated_
 >
 > At this point it's cheaper AND smaller to just use the module. So that's what I did
 
-Then I thought it'd be fun to add power management. "fun." Which is an extra IC and a module. If only it was simple like the xiao! I discovered some... interesting hacks like how the VIN pin on the esp [is actually 5v out](https://esp32.com/viewtopic.php?t=11904) when the usb is plugged in. Meaning we can charge from VIN and then discharge also to VIN.
+Then I thought it'd be fun to add power management. _"fun."_ If only it was simple like the xiao! I added the TP4056 IC because I was feeling fancy. I asked on slack, and it turns out you need a boost converter. To get your 3.7v battery up to 5v... so that it can go back down to 3v. I used a module for the boost converter. But I still got to add fun charging status LEDs! Also I got the "opportunity" to google translate Chinese datasheets.
+
+<img src="docs/tp4056.png" width="30%">
+
+I discovered some... interesting hacks like how the VIN pin on the esp [is actually 5v out](https://esp32.com/viewtopic.php?t=11904) when the usb is plugged in. Meaning we can charge from VIN and then discharge also to VIN.
 
 ## Schematic
 
