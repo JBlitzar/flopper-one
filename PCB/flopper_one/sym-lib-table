@@ -2,4 +2,5 @@
   (version 7)
   (lib (name "esp32")(type "KiCad")(uri "${KIPRJMOD}/esp32_30pin.kicad_sym")(options "")(descr ""))
   (lib (name "espw")(type "KiCad")(uri "${KIPRJMOD}/wroom/DEVKIT_V1_ESP32-WROOM-32.kicad_sym")(options "")(descr ""))
+  (lib (name "hw-045")(type "Legacy")(uri "${KIPRJMOD}/MT3608/hw-045.lib")(options "")(descr ""))
 )
