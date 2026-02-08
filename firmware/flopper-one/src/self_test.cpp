@@ -2,21 +2,10 @@
 
 #include <Wire.h>
 
-// Optional display support (only compiles if the library exists)
-#if __has_include(<TFT_eSPI.h>)
-  #include <TFT_eSPI.h>
-  #define FLOPPER_HAS_TFT_ESPI 1
-#else
-  #define FLOPPER_HAS_TFT_ESPI 0
-#endif
 
-// Optional PN532 support (only compiles if the library exists)
-#if __has_include(<Adafruit_PN532.h>)
-  #include <Adafruit_PN532.h>
-  #define FLOPPER_HAS_PN532 1
-#else
-  #define FLOPPER_HAS_PN532 0
-#endif
+#include <TFT_eSPI.h>
+#include <Adafruit_PN532.h>
+
 
 namespace flopper {
 
@@ -91,7 +80,6 @@ void SelfTest::runI2CScan() {
 }
 
 void SelfTest::tickPn532() {
-#if FLOPPER_HAS_PN532
   static bool inited = false;
   static bool present = false;
   static Adafruit_PN532 nfc(0xFF, 0xFF, &Wire); // I2C mode; IRQ/RESET optional
@@ -159,7 +147,7 @@ void SelfTest::tickPn532() {
       nfc.PrintHexChar(page, 4);
     }
   }
-#endif
+
 }
 
 void SelfTest::tickIrLed() {
@@ -202,7 +190,7 @@ void SelfTest::tickDisplay() {
   if (now - lastDisplayMs_ < 1000) return;
   lastDisplayMs_ = now;
 
-#if FLOPPER_HAS_TFT_ESPI
+
   static bool inited = false;
   static TFT_eSPI tft;
   if (!inited) {
@@ -218,9 +206,7 @@ void SelfTest::tickDisplay() {
 
   tft.fillRect(10, 40, 220, 30, TFT_BLACK);
   tft.drawString(String("ms ") + String(now), 10, 40);
-#else
-  (void)now;
-#endif
+
 }
 
 void SelfTest::begin() {
