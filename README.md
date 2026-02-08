@@ -35,6 +35,12 @@ For NFC/RFID, I opted for the PN532 module. I breifly entertained the idea of us
 
 <img src="docs/schematic.png" width="100%">
 
+## Assembly
+
+<img src="CAD/together.png" width="100%">
+
+IMPORTANT: See [CAD/README.md](CAD/README.md) for notes.
+
 ## PCB
 
 <img src="docs/pcb.png" width="100%">
