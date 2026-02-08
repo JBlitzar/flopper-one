@@ -21,10 +21,13 @@ static flopper::SelfTest selfTest(
 void setup() {
   Serial.begin(115200);
   delay(200);
+  Serial.printf("init...\n");
 
-  selfTest.begin();
+//   selfTest.begin();
 }
 
 void loop() {
-  selfTest.loop();
+    Serial.println("Running...");
+  delay(1000);
+//   selfTest.loop();
 }
