@@ -39,7 +39,9 @@ Then I thought it'd be fun to add power management. _"fun."_ If only it was simp
 
 <img src="docs/tp4056.png" width="30%">
 
-I discovered some... interesting hacks like how the VIN pin on the esp [is actually 5v out](https://esp32.com/viewtopic.php?t=11904) when the usb is plugged in. Meaning we can charge from VIN and then discharge also to VIN.
+I also discovered some... interesting hacks like how the VIN pin on the esp [is actually 5v out](https://esp32.com/viewtopic.php?t=11904) when the usb is plugged in. Meaning we can charge from VIN and then discharge also to VIN.
+
+I added a physical switch to prevent backflow. So congratulations, users are now trusted with power supply logic!
 
 ## Schematic
 
