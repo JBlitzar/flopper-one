@@ -11,13 +11,15 @@
     </tr>
 </table>
 
+Flipper zero-type firmware with an ESP32. Featuring IR, NFC, BLE, wifi, with a dpad and an lcd display. Not designed using any guide!
+
 I've always thought that the flipper zero was pretty cool, but the $200 price point made it seem out of reach.
 
 I joined up blueprint, made the [hackpad](https://github.com/JBlitzar/blitzypad), learned a lot and had a lot of fun.
 
 Then I saw the [sorta flipper zero](https://blueprint.hackclub.com/projects/7192). This was truly inspring. I saw it, and I thought to myself, _I could totally do that_. And it turns out I have like half the parts! The ESP has wifi and bluetooth built in (you usually need to pay like $60 extra for wifi on a flipper), all that's left is to add... all the other stuff.
 
-Since this is my second PCB project, I opted for a module build.
+Since this is my second PCB project, I opted for a module build. In the end, this made the pcb quite crowded and taught me a lot about good routing (and I still had to use the smd TP4056 IC, you'll see later)
 
 Basically, after the ESP, we need a UI, IR, NFC, and RFID.
 
