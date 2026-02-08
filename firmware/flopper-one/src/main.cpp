@@ -9,6 +9,7 @@
 #define PN532_SCL = 15
 #define SD7789_SCL = 18 // SD7789 display
 #define SD7789_SDA = 19
+#define IR_LED_PORT = 16 // just an ir led hooked up to gpio16
 
 // put function declarations here:
 int myFunction(int, int);
