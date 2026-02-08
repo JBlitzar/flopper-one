@@ -10,6 +10,14 @@
   #define FLOPPER_HAS_TFT_ESPI 0
 #endif
 
+// Optional PN532 support (only compiles if the library exists)
+#if __has_include(<Adafruit_PN532.h>)
+  #include <Adafruit_PN532.h>
+  #define FLOPPER_HAS_PN532 1
+#else
+  #define FLOPPER_HAS_PN532 0
+#endif
+
 namespace flopper {
 
 static const char* levelStr(bool pressed) { return pressed ? "pressed" : "released"; }
@@ -78,12 +86,6 @@ bool SelfTest::shouldEnterOnBoot() const {
 void SelfTest::runI2CScan() {
   if (!opts_.enableI2CScan) return;
 
-#if defined(ARDUINO_ARCH_ESP32)
-  Wire.begin(pins_.i2cSda, pins_.i2cScl);
-#else
-  Wire.begin();
-#endif
-
   Serial.printf("[SELFTEST][I2C] scanning (SDA=%u SCL=%u) ...\n", pins_.i2cSda, pins_.i2cScl);
   uint8_t found = 0;
   for (uint8_t addr = 1; addr < 127; addr++) {
@@ -96,6 +98,78 @@ void SelfTest::runI2CScan() {
     delay(2);
   }
   if (found == 0) Serial.println("[SELFTEST][I2C] no devices found");
+}
+
+void SelfTest::tickPn532() {
+#if FLOPPER_HAS_PN532
+  static bool inited = false;
+  static bool present = false;
+  static Adafruit_PN532 nfc(0xFF, 0xFF, &Wire); // I2C mode; IRQ/RESET optional
+
+  static uint8_t lastUid[7] = {0};
+  static uint8_t lastUidLen = 0;
+  static uint32_t lastSeenMs = 0;
+  static uint32_t lastPollMs = 0;
+
+  const uint32_t now = millis();
+  if (now - lastPollMs < 200) return;
+  lastPollMs = now;
+
+  if (!inited) {
+    inited = true;
+    nfc.begin();
+
+    const uint32_t version = nfc.getFirmwareVersion();
+    if (!version) {
+      Serial.println("[SELFTEST][PN532] not detected (check wiring/power/I2C pins)");
+      return;
+    }
+
+    present = true;
+    Serial.printf("[SELFTEST][PN532] found chip PN5%02lX\n", (unsigned long)((version >> 24) & 0xFF));
+    Serial.printf("[SELFTEST][PN532] firmware %lu.%lu\n",
+                  (unsigned long)((version >> 16) & 0xFF),
+                  (unsigned long)((version >> 8) & 0xFF));
+    nfc.SAMConfig();
+    nfc.setPassiveActivationRetries(0xFF);
+    Serial.println("[SELFTEST][PN532] waiting for ISO14443A tags...");
+  }
+
+  if (!present) return;
+
+  uint8_t uid[7] = {0};
+  uint8_t uidLen = 0;
+  const bool ok = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uidLen, 10);
+  if (!ok) return;
+
+  const bool same = (uidLen == lastUidLen) && (memcmp(uid, lastUid, uidLen) == 0);
+  if (same && (now - lastSeenMs) < 1000) return;
+
+  memcpy(lastUid, uid, uidLen);
+  lastUidLen = uidLen;
+  lastSeenMs = now;
+
+  Serial.printf("[SELFTEST][PN532] tag UID (%u bytes): ", uidLen);
+  nfc.PrintHex(uid, uidLen);
+
+  if (uidLen == 4) {
+    uint8_t keya[6] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+    uint8_t data[16];
+    const bool authed = nfc.mifareclassic_AuthenticateBlock(uid, uidLen, 4, 0, keya);
+    if (authed && nfc.mifareclassic_ReadDataBlock(4, data)) {
+      Serial.print("[SELFTEST][PN532] Mifare Classic block 4: ");
+      nfc.PrintHexChar(data, 16);
+    } else {
+      Serial.println("[SELFTEST][PN532] Mifare Classic auth/read failed (maybe different keys or not Classic)");
+    }
+  } else if (uidLen == 7) {
+    uint8_t page[4];
+    if (nfc.ntag2xx_ReadPage(4, page)) {
+      Serial.print("[SELFTEST][PN532] NTAG page 4: ");
+      nfc.PrintHexChar(page, 4);
+    }
+  }
+#endif
 }
 
 void SelfTest::tickIrLed() {
@@ -172,7 +246,14 @@ void SelfTest::begin() {
   if (pins_.tsopOut != 0xFF) pinMode(pins_.tsopOut, INPUT);
   for (auto& b : buttons_) initButton(b);
 
+#if defined(ARDUINO_ARCH_ESP32)
+  Wire.begin(pins_.i2cSda, pins_.i2cScl);
+#else
+  Wire.begin();
+#endif
+
   runI2CScan();
+  tickPn532();
   Serial.println("[SELFTEST] ready: press/release buttons and watch serial output");
 }
 
@@ -180,6 +261,7 @@ void SelfTest::loop() {
   if (!active_) return;
 
   for (auto& b : buttons_) updateButton(b);
+  tickPn532();
   tickIrLed();
   tickTsop();
   tickDisplay();

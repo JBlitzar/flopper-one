@@ -71,6 +71,7 @@ private:
   void printBanner();
   void printPeriodicStats();
   void runI2CScan();
+  void tickPn532();
   void tickIrLed();
   void tickTsop();
   void tickDisplay();
