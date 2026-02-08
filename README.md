@@ -49,6 +49,8 @@ IMPORTANT: See [CAD/README.md](CAD/README.md) for notes.
 
 see BOM.csv.
 
+This BOM format has been [approved](https://hackclub.slack.com/archives/C09CMJV6V6K/p1770569396266989) by the blueprint team
+
 | Item              | Link                                                  | Cost | Amount | total cost of | total | Gotten? |
 | ----------------- | ----------------------------------------------------- | ---- | ------ | ------------- | ----- | ------- |
 | esp32 wroom       | already own                                           | 0    | 1      | 0             | 30.87 | TRUE    |
