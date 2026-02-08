@@ -1,6 +1,6 @@
 #!/bin/bash
 /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli sch export svg --output docs/schem PCB/flopper_one/*.kicad_sch
-/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli pcb export svg --output docs/pcb.svg --theme _builtin_default PCB/flopper_one/*.kicad_pcb --layers "F.Cu,B.Cu,F.Silkscreen,B.Silkscreen,Edge.Cuts"
+/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli pcb export svg --output docs/pcb.svg --theme _builtin_default PCB/flopper_one/*.kicad_pcb --layers "F.Cu,B.Cu,F.Silkscreen,B.Silkscreen,Edge.Cuts,F.Fab,B.Fab"
 
 
 # Extract viewBox dimensions
