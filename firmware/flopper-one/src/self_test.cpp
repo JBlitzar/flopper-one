@@ -71,17 +71,7 @@ void SelfTest::printBanner() {
 #endif
 }
 
-bool SelfTest::shouldEnterOnBoot() const {
-  if (!opts_.bootHoldToEnter) return false;
 
-  pinMode(pins_.dpadCenter, opts_.buttonsActiveLow ? INPUT_PULLUP : INPUT);
-  const uint32_t start = millis();
-  while (millis() - start < opts_.bootHoldMs) {
-    if (!readPressed(pins_.dpadCenter)) return false;
-    delay(10);
-  }
-  return true;
-}
 
 void SelfTest::runI2CScan() {
   if (!opts_.enableI2CScan) return;
@@ -234,7 +224,8 @@ void SelfTest::tickDisplay() {
 }
 
 void SelfTest::begin() {
-  active_ = opts_.defaultOn || shouldEnterOnBoot();
+  active_ = true;//
+
 
   if (!active_) return;
 
@@ -258,6 +249,7 @@ void SelfTest::begin() {
 }
 
 void SelfTest::loop() {
+
   if (!active_) return;
 
   for (auto& b : buttons_) updateButton(b);

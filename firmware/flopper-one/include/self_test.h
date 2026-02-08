@@ -21,26 +21,17 @@ struct SelfTestOptions {
   bool enableI2CScan = true;
   uint16_t debounceMs = 20;
 
-  // If true, self-test mode starts when DPAD_CENTER is held during boot.
-  bool bootHoldToEnter = true;
-  uint16_t bootHoldMs = 750;
 
-  // If true, always run self-test (useful while bringing up hardware).
-  bool defaultOn = true;
 
   constexpr SelfTestOptions() = default;
   constexpr SelfTestOptions(bool buttonsActiveLow_,
                             bool enableI2CScan_,
                             uint16_t debounceMs_,
                             bool bootHoldToEnter_,
-                            uint16_t bootHoldMs_,
-                            bool defaultOn_)
+                            uint16_t bootHoldMs_)
       : buttonsActiveLow(buttonsActiveLow_),
         enableI2CScan(enableI2CScan_),
-        debounceMs(debounceMs_),
-        bootHoldToEnter(bootHoldToEnter_),
-        bootHoldMs(bootHoldMs_),
-        defaultOn(defaultOn_) {}
+        debounceMs(debounceMs_) {}
 };
 
 class SelfTest {
