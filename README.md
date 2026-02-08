@@ -45,7 +45,7 @@ I added a physical switch to prevent backflow. So congratulations, users are now
 
 ## Schematic
 
-<img src="docs/schematic.png" width="100%">
+<img src="docs/schem/flopper_one.svg" width="100%">
 
 ## Assembly
 
@@ -55,7 +55,7 @@ IMPORTANT: See [CAD/README.md](CAD/README.md) for notes.
 
 ## PCB
 
-<img src="docs/pcb.png" width="100%">
+<img src="docs/pcb.svg" width="100%">
 
 ## BOM in table format
 
