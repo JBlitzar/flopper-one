@@ -1,0 +1,15 @@
+# Flopper-one firmware
+
+Hello, this is the platformio project directory for the flopper one firmware. To not be presumptuous, it's currently set to run a relatively conservative self-test. I've found that things often go wrong, and it's better to debug that early. I have great plans for this in the future. For now it just prints debug statements to the serial console.
+
+## A note on AI usage
+
+I used AI for programming portions of this firmware, since I'm not too experienced with platformio. I still feel as if I understand all the code. Don't think of this as a no-effort vibe-coded software stack.
+
+This aligns with Blueprint's AI policy. From the FAQ canvas:
+
+> _Can I use AI?_
+>
+> _**Yes as guidance/help for code**, no for journals and the rest of your project. This is your project, not AI’s. AI projects will lead to a rejection._
+
+(emphasis mine)
