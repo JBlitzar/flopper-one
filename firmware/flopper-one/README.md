@@ -1,6 +1,8 @@
 # Flopper-one firmware
 
-Hello, this is the platformio project directory for the flopper one firmware. To not be presumptuous, it's currently set to run a relatively conservative self-test. I've found that things often go wrong, and it's better to debug that early. I have great plans for this in the future. For now it just prints debug statements to the serial console.
+Hello, this is the [platformio](https://platformio.org/) project directory for the flopper one firmware. To not be presumptuous, it's currently set to run a relatively conservative self-test. I've found that things often go wrong, and it's better to debug that early. I have great plans for this in the future. For now it just prints debug statements to the serial console.
+
+All of the hardware pins should be corroborated by the schematic (see [`include/flopper_pins.h`](include/flopper_pins.h))
 
 ## A note on AI usage
 
