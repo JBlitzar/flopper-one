@@ -490,7 +490,7 @@
       "plot": "gerbers/",
       "pos_files": "",
       "specctra_dsn": "",
-      "step": "../../CAD/flopper_one.glb",
+      "step": "../../CAD/flopper_one.step",
       "svg": "",
       "vrml": ""
     },
