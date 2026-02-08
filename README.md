@@ -29,7 +29,13 @@ IR is incredibly easy. It's literally an LED (with some passives sprinkled in), 
 
 For NFC/RFID, I opted for the PN532 module. I breifly entertained the idea of using the bare PN532 chip and fully integrating it, but the [datasheet](https://www.nxp.com/docs/en/nxp/data-sheets/PN532_C1.pdf) is 222 pages long and the application circuit (page 212, figure 51) seems pretty involved if I do say so myself.
 
-... And then I thought it'd be fun to add power management. Which is an extra IC and a module. If only it was simple like the xiao! I discovered some... interesting hacks like how the VIN pin on the esp [is actually 5v out](https://esp32.com/viewtopic.php?t=11904) when the usb is plugged in. Meaning we can charge from VIN and then discharge also to VIN.
+<img src="docs/nfc.png" width="50%">
+
+> _incomplete nfc circuit... yeah its pretty complicated_
+>
+> At this point it's cheaper AND smaller to just use the module. So that's what I did
+
+Then I thought it'd be fun to add power management. "fun." Which is an extra IC and a module. If only it was simple like the xiao! I discovered some... interesting hacks like how the VIN pin on the esp [is actually 5v out](https://esp32.com/viewtopic.php?t=11904) when the usb is plugged in. Meaning we can charge from VIN and then discharge also to VIN.
 
 ## Schematic
 
