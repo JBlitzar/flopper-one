@@ -22,7 +22,7 @@ namespace flopper {
 
 static const char* levelStr(bool pressed) { return pressed ? "pressed" : "released"; }
 
-SelfTest::SelfTest(const SelfTestPins& pins, const SelfTestOptions& opts)
+SelfTest::SelfTest(const PinSet& pins, const SelfTestOptions& opts)
     : pins_(pins), opts_(opts) {
   buttons_[0] = {"UP", pins_.dpadUp, false, false, 0};
   buttons_[1] = {"LEFT", pins_.dpadLeft, false, false, 0};

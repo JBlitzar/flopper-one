@@ -4,7 +4,7 @@
 #include "self_test.h"
 
 static flopper::SelfTest selfTest(
-    flopper::SelfTestPins{
+    flopper::PinSet{
         flopper::pins::DPAD_UP,
         flopper::pins::DPAD_LEFT,
         flopper::pins::DPAD_RIGHT,
@@ -15,8 +15,8 @@ static flopper::SelfTest selfTest(
         flopper::pins::PN532_SDA,
         flopper::pins::PN532_SCL,
     },
-    // Default: only enter self-test if CENTER is held during boot.
-    flopper::SelfTestOptions(true, true, 20, true, 750, false));
+    flopper::SelfTestOptions(true, true, 20, true)
+);
 
 void setup() {
   Serial.begin(115200);

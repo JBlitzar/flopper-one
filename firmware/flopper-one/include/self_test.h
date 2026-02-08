@@ -4,7 +4,7 @@
 
 namespace flopper {
 
-struct SelfTestPins {
+struct PinSet {
   uint8_t dpadUp;
   uint8_t dpadLeft;
   uint8_t dpadRight;
@@ -27,8 +27,7 @@ struct SelfTestOptions {
   constexpr SelfTestOptions(bool buttonsActiveLow_,
                             bool enableI2CScan_,
                             uint16_t debounceMs_,
-                            bool bootHoldToEnter_,
-                            uint16_t bootHoldMs_)
+                            bool bootHoldToEnter_)
       : buttonsActiveLow(buttonsActiveLow_),
         enableI2CScan(enableI2CScan_),
         debounceMs(debounceMs_) {}
@@ -36,7 +35,7 @@ struct SelfTestOptions {
 
 class SelfTest {
 public:
-  SelfTest(const SelfTestPins& pins, const SelfTestOptions& opts);
+  SelfTest(const PinSet& pins, const SelfTestOptions& opts);
 
   void begin();
   void loop();
@@ -67,7 +66,7 @@ private:
   void tickTsop();
   void tickDisplay();
 
-  SelfTestPins pins_;
+  PinSet pins_;
   SelfTestOptions opts_;
   bool active_ = false;
 
