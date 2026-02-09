@@ -3,10 +3,10 @@
 <table width="100%">
     <tr>
         <td>
-            <img src="docs/3dfront.png" width="100%">
+            <img src="docs/pcb_3d_front.png" width="100%">
         </td>
         <td>
-            <img src="docs/3dback.png" width="100%">
+            <img src="docs/pcb_3d_back.png" width="100%">
         </td>
     </tr>
 </table>
