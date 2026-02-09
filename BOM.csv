@@ -12,9 +12,10 @@ shipping,n/a,5.19,1,5.19,,FALSE
 5x PCB (moq),n/a,5.3,1,5.3,,FALSE
 switch,already own,0,1,0,,TRUE
 1kΩ resistor,can get for free?,0,3,0,,FALSE
+4Ω resistor,can get for free?,0,1,0,,FALSE
 47-100Ω resistor,can get for free?,0,1,0,,FALSE
 1.2kΩ resistor,can get for free?,0,1,0,,FALSE
-10uf capacitor,can get for free?,0,1,0,,FALSE
+10uf capacitor,can get for free?,0,2,0,,FALSE
 2n2219,can get for free?,0,1,0,,FALSE
 "LEDS (green, red)",already own,0,2,0,,TRUE
 header pins,can get for free,0,2,0,,FALSE
