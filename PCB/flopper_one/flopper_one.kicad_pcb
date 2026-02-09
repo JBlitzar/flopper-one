@@ -126,7 +126,7 @@
 		(property "Reference" "U2"
 			(at 0 0 0)
 			(layer "F.SilkS")
-			(uuid "d41b1879-58c6-4ddb-a36f-cbd25143e543")
+			(uuid "e1e939cc-3bd2-4282-80c9-471573933336")
 			(effects
 				(font
 					(size 1 1)
@@ -138,7 +138,7 @@
 			(at 7.05 10.305 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "31fa3c2a-0985-4dba-9326-361939818e0d")
+			(uuid "79e7abcc-7e1d-471e-85d8-244505facdd9")
 			(effects
 				(font
 					(size 1 1)
@@ -150,7 +150,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "81993d42-13c0-48c7-a006-df344f34ba87")
+			(uuid "d04b7326-6f62-4c3c-9c0d-b2506e3512c1")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -162,7 +162,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "6a5804b0-181d-4122-bb1d-ae1555d58e88")
+			(uuid "7da184b7-ed1c-4407-a109-2895967472f8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7906,110 +7906,6 @@
 		(layer "Edge.Cuts")
 		(uuid "e8c3c4df-83fc-49c3-8fc8-b80c29d54218")
 	)
-	(gr_text "IR SEND"
-		(at 51 83.25 90)
-		(layer "F.SilkS")
-		(uuid "0fe38970-cf48-4549-8d23-fc64dcc7c18b")
-		(effects
-			(font
-				(size 0.5 0.5)
-				(thickness 0.1)
-				(bold yes)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "P1"
-		(at 64 61.25 270)
-		(layer "F.SilkS")
-		(uuid "2cdbcf8d-bb4d-4c75-8020-6da0b9081d60")
-		(effects
-			(font
-				(size 0.5 0.5)
-				(thickness 0.1)
-				(bold yes)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "PN532 SCL"
-		(at 56 83.25 90)
-		(layer "F.SilkS")
-		(uuid "2e175c0f-62f0-40cf-9b3f-95745c6a1f19")
-		(effects
-			(font
-				(size 0.5 0.5)
-				(thickness 0.1)
-				(bold yes)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "P2"
-		(at 61 61.25 270)
-		(layer "F.SilkS")
-		(uuid "341b14d3-45c1-44e3-a6c9-1d84a4c23232")
-		(effects
-			(font
-				(size 0.5 0.5)
-				(thickness 0.1)
-				(bold yes)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "P4"
-		(at 67 61.25 270)
-		(layer "F.SilkS")
-		(uuid "419d3241-b568-4c0c-add6-bb28bc547ed4")
-		(effects
-			(font
-				(size 0.5 0.5)
-				(thickness 0.1)
-				(bold yes)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "P5"
-		(at 56 61.25 270)
-		(layer "F.SilkS")
-		(uuid "5b024d20-b7a3-4624-b27f-c23ed4bca50e")
-		(effects
-			(font
-				(size 0.5 0.5)
-				(thickness 0.1)
-				(bold yes)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "IR RECV"
-		(at 75 83.25 90)
-		(layer "F.SilkS")
-		(uuid "6c162ce2-12e5-434b-ad7b-3dba6642453b")
-		(effects
-			(font
-				(size 0.5 0.5)
-				(thickness 0.1)
-				(bold yes)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "P3"
-		(at 59 61.25 270)
-		(layer "F.SilkS")
-		(uuid "70f2de4d-3686-4b10-9799-95c5f5a622cf")
-		(effects
-			(font
-				(size 0.5 0.5)
-				(thickness 0.1)
-				(bold yes)
-			)
-			(justify left bottom)
-		)
-	)
 	(gr_text "SCREEN HERE"
 		(at 48 49.25 0)
 		(layer "F.SilkS")
@@ -8018,19 +7914,6 @@
 			(font
 				(size 1.5 1.5)
 				(thickness 0.3)
-				(bold yes)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "SCREEN SDA"
-		(at 62 83.25 90)
-		(layer "F.SilkS")
-		(uuid "829b991b-e475-404b-9611-ce74ca723dcc")
-		(effects
-			(font
-				(size 0.5 0.5)
-				(thickness 0.1)
 				(bold yes)
 			)
 			(justify left bottom)
@@ -8049,30 +7932,17 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "SCREEN SCL"
-		(at 59 83.25 90)
-		(layer "F.SilkS")
-		(uuid "e0af289b-b03b-4254-a748-3e33fe809609")
+	(gr_text "IR SEND"
+		(at 51 83.25 -90)
+		(layer "B.SilkS")
+		(uuid "0fe38970-cf48-4549-8d23-fc64dcc7c18b")
 		(effects
 			(font
 				(size 0.5 0.5)
 				(thickness 0.1)
 				(bold yes)
 			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "PN532 SDA"
-		(at 54 83.25 90)
-		(layer "F.SilkS")
-		(uuid "e484c8ba-8460-47da-b706-7fcda96cb62f")
-		(effects
-			(font
-				(size 0.5 0.5)
-				(thickness 0.1)
-				(bold yes)
-			)
-			(justify left bottom)
+			(justify left bottom mirror)
 		)
 	)
 	(gr_text "47-100Ω"
@@ -8100,8 +7970,47 @@
 			(justify left bottom)
 		)
 	)
+	(gr_text "P1"
+		(at 64 61.25 -270)
+		(layer "B.SilkS")
+		(uuid "2cdbcf8d-bb4d-4c75-8020-6da0b9081d60")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.1)
+				(bold yes)
+			)
+			(justify left bottom mirror)
+		)
+	)
+	(gr_text "PN532 SCL"
+		(at 56 83.25 -90)
+		(layer "B.SilkS")
+		(uuid "2e175c0f-62f0-40cf-9b3f-95745c6a1f19")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.1)
+				(bold yes)
+			)
+			(justify left bottom mirror)
+		)
+	)
+	(gr_text "P2"
+		(at 61 61.25 -270)
+		(layer "B.SilkS")
+		(uuid "341b14d3-45c1-44e3-a6c9-1d84a4c23232")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.1)
+				(bold yes)
+			)
+			(justify left bottom mirror)
+		)
+	)
 	(gr_text "PN532 HERE"
-		(at 56 63.25 -0)
+		(at 66.5 66.25 -0)
 		(layer "B.SilkS")
 		(uuid "367feee4-8374-450f-97b0-0d2798239263")
 		(effects
@@ -8126,6 +8035,19 @@
 			(justify left bottom mirror)
 		)
 	)
+	(gr_text "P4"
+		(at 67 61.25 -270)
+		(layer "B.SilkS")
+		(uuid "419d3241-b568-4c0c-add6-bb28bc547ed4")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.1)
+				(bold yes)
+			)
+			(justify left bottom mirror)
+		)
+	)
 	(gr_text "BAT+"
 		(at 82 51.5 90)
 		(layer "B.SilkS")
@@ -8138,6 +8060,58 @@
 			(justify left bottom)
 		)
 	)
+	(gr_text "P5"
+		(at 56 61.25 -270)
+		(layer "B.SilkS")
+		(uuid "5b024d20-b7a3-4624-b27f-c23ed4bca50e")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.1)
+				(bold yes)
+			)
+			(justify left bottom mirror)
+		)
+	)
+	(gr_text "IR RECV"
+		(at 75 83.25 -90)
+		(layer "B.SilkS")
+		(uuid "6c162ce2-12e5-434b-ad7b-3dba6642453b")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.1)
+				(bold yes)
+			)
+			(justify left bottom mirror)
+		)
+	)
+	(gr_text "P3"
+		(at 59 61.25 -270)
+		(layer "B.SilkS")
+		(uuid "70f2de4d-3686-4b10-9799-95c5f5a622cf")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.1)
+				(bold yes)
+			)
+			(justify left bottom mirror)
+		)
+	)
+	(gr_text "SCREEN SDA"
+		(at 62 83.25 -90)
+		(layer "B.SilkS")
+		(uuid "829b991b-e475-404b-9611-ce74ca723dcc")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.1)
+				(bold yes)
+			)
+			(justify left bottom mirror)
+		)
+	)
 	(gr_text "BAT-"
 		(at 93.25 49.25 90)
 		(layer "B.SilkS")
@@ -8148,6 +8122,32 @@
 				(thickness 0.125)
 			)
 			(justify left bottom)
+		)
+	)
+	(gr_text "SCREEN SCL"
+		(at 59 83.25 -90)
+		(layer "B.SilkS")
+		(uuid "e0af289b-b03b-4254-a748-3e33fe809609")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.1)
+				(bold yes)
+			)
+			(justify left bottom mirror)
+		)
+	)
+	(gr_text "PN532 SDA"
+		(at 54 83.25 -90)
+		(layer "B.SilkS")
+		(uuid "e484c8ba-8460-47da-b706-7fcda96cb62f")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.1)
+				(bold yes)
+			)
+			(justify left bottom mirror)
 		)
 	)
 	(gr_text "1.2kΩ"
