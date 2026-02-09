@@ -29,6 +29,11 @@ rm PCB/flopper_one/gerbers/*.gbr
     --no-protel-ext \
   --layers "F.Cu,B.Cu,F.Paste,B.Paste,F.Silkscreen,B.Silkscreen,F.Mask,B.Mask,Edge.Cuts" \
   PCB/flopper_one/*.kicad_pcb
+/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli pcb export drill \
+  --output PCB/flopper_one/gerbers/ \
+  --format excellon \
+  PCB/flopper_one/*.kicad_pcb
 
-rm PCB/flopper_one/gerbers/flopper_one_gerbers.zip
-zip -j PCB/flopper_one/flopper_one_gerbers.zip PCB/flopper_one/gerbers/*.gbr*
+
+rm PCB/flopper_one/flopper_one_gerbers.zip
+zip -j PCB/flopper_one/flopper_one_gerbers.zip PCB/flopper_one/gerbers/*.*r*
