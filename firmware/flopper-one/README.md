@@ -15,3 +15,17 @@ This aligns with Blueprint's AI policy. From the FAQ canvas:
 > _**Yes as guidance/help for code**, no for journals and the rest of your project. This is your project, not AI’s. AI projects will lead to a rejection._
 
 (emphasis mine)
+
+## Roadmap
+
+- Make sure everything works!
+- proper menu system
+- integrate peripherals, classic flipper functionality (sniff, emit, etc)
+  - tv remote emu
+  - ble hid
+  - easy save / replay on all
+- wifi pranks feat. marauder
+- polish / boot screen etc
+- openhaystack integration? https://github.com/seemoo-lab/openhaystack/tree/main/Firmware/ESP32
+- funny usb stuff
+- logic analyzer / i2c debugger
