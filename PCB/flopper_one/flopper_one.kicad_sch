@@ -4142,6 +4142,16 @@
 		)
 		(uuid "9e79ed83-5444-40ba-a9b8-645bc897745a")
 	)
+	(label "CE"
+		(at 162.56 24.13 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "a4e8562d-ef78-4320-af57-781c1c636327")
+	)
 	(label "P1"
 		(at 116.84 95.25 0)
 		(effects
@@ -4271,6 +4281,16 @@
 			(justify left bottom)
 		)
 		(uuid "fdc55cb6-166e-4c06-8213-599a1bfdd802")
+	)
+	(label "tp_vcc"
+		(at 172.72 16.51 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ffc8aa6b-5946-4941-aaf6-817d032f9622")
 	)
 	(symbol
 		(lib_id "power:GND")
