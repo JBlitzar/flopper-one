@@ -1,5 +1,7 @@
 # flopper-one
 
+# [NOTE TO THE REVIEWERS-- PLEASE READ!](docs/note.md)
+
 <img src="CAD/br1.png">
 
 <img src="CAD/br4.png">
@@ -67,25 +69,26 @@ see BOM.csv.
 
 This BOM format has been [approved](https://hackclub.slack.com/archives/C09CMJV6V6K/p1770569396266989) by the blueprint team
 
-| Item              | Link                                                  | Cost | Amount | total cost of | total | Gotten? |
-| ----------------- | ----------------------------------------------------- | ---- | ------ | ------------- | ----- | ------- |
-| esp32 wroom       | already own                                           | 0    | 1      | 0             | 30.87 | TRUE    |
-| TSOP38238         | https://www.aliexpress.us/item/3256806628003365.html  | 1.55 | 1      | 1.55          |       | FALSE   |
-| TSAL6200          | https://www.aliexpress.us/item/3256805924747789.html  | 2.42 | 1      | 2.42          |       | FALSE   |
-| PN532             | https://www.aliexpress.us/item/3256806254348567.html  | 0.99 | 1      | 0.99          |       | FALSE   |
-| ST7789            | https://www.aliexpress.us/item/2255799995721426.html  | 3.57 | 1      | 3.57          |       | FALSE   |
-| 5x b3fs           | https://www.aliexpress.us/item/3256807254489666.html  | 3.69 | 1      | 3.69          |       | FALSE   |
-| 10x TP4056 (moq)  | https://www.aliexpress.us/item/3256811339022742.html  | 1.19 | 1      | 1.19          |       | FALSE   |
-| lipo battery      | already own                                           | 0    | 1      | 0             |       | TRUE    |
-| MT3608 module     | https://www.aliexpress.us/item/3256808032184992.html? | 6.97 | 1      | 6.97          |       | FALSE   |
-| shipping          | n/a                                                   | 5.19 | 1      | 5.19          |       | FALSE   |
-| 5x PCB (moq)      | n/a                                                   | 5.3  | 1      | 5.3           |       | FALSE   |
-| switch            | already own                                           | 0    | 1      | 0             |       | TRUE    |
-| 1kΩ resistor      | can get for free?                                     | 0    | 3      | 0             |       | FALSE   |
-| 4Ω resistor       | can get for free?                                     | 0    | 1      | 0             |       | FALSE   |
-| 47-100Ω resistor  | can get for free?                                     | 0    | 1      | 0             |       | FALSE   |
-| 1.2kΩ resistor    | can get for free?                                     | 0    | 1      | 0             |       | FALSE   |
-| 10uf capacitor    | can get for free?                                     | 0    | 2      | 0             |       | FALSE   |
-| 2n2219            | can get for free?                                     | 0    | 1      | 0             |       | FALSE   |
-| LEDS (green, red) | already own                                           | 0    | 2      | 0             |       | TRUE    |
-| header pins       | can get for free                                      | 0    | 2      | 0             |       | FALSE   |
+| Item                        | Link                                                  | Cost  | Amount | total cost of | total | Gotten? |
+| --------------------------- | ----------------------------------------------------- | ----- | ------ | ------------- | ----- | ------- |
+|                             |                                                       |       |        |               | 37.34 | FALSE   |
+| esp32 wroom                 | already own                                           | 0     | 1      | 0             |       | TRUE    |
+| TSOP38238                   | https://www.lcsc.com/product-detail/C141632.html      | 0.73  | 1      | 0.73          |       | FALSE   |
+| TSAL6200                    | https://www.lcsc.com/product-detail/C55528.html       | 0.83  | 1      | 0.83          |       | FALSE   |
+| PN532                       | https://www.aliexpress.us/item/3256806254348567.html  | 0.99  | 1      | 0.99          |       | FALSE   |
+| ST7789                      | https://www.aliexpress.us/item/2255799995721426.html  | 3.57  | 1      | 3.57          |       | FALSE   |
+| 5x b3fs                     | https://www.lcsc.com/product-detail/C271750.html      | 1.07  | 1      | 1.07          |       | FALSE   |
+| 5x TP4056 (moq)             | https://www.lcsc.com/product-detail/C16581.html       | 0.91  | 1      | 0.91          |       | FALSE   |
+| lipo battery                | already own                                           | 0     | 1      | 0             |       | TRUE    |
+| MT3608 module               | https://www.aliexpress.us/item/3256808032184992.html? | 6.77  | 1      | 6.77          |       | FALSE   |
+| 5x PCB (moq)                | n/a                                                   | 5.3   | 1      | 5.3           |       | FALSE   |
+| switch                      | already own                                           | 0     | 1      | 0             |       | TRUE    |
+| 1kΩ resistor                | Can get for free                                      | 0     | 3      | 0             |       | TRUE    |
+| 47-100Ω resistor            | Can get for free                                      | 0     | 1      | 0             |       | TRUE    |
+| 1.2kΩ resistor              | Can get substitute for free                           | 0     | 1      | 0             |       | TRUE    |
+| 10uf capacitor              | can get for free                                      | 0     | 2      | 0             |       | FALSE   |
+| 2n2222a (2n2219 substitute) | https://www.lcsc.com/product-detail/C118536.html      | 0.77  | 1      | 0.77          |       | FALSE   |
+| LEDS (green, red)           | already own                                           | 0     | 2      | 0             |       | TRUE    |
+| header pins                 | can get for free                                      | 0     | 2      | 0             |       | FALSE   |
+| aliexpress shipping         | n/a                                                   | 5.19  | 1      | 5.19          |       | FALSE   |
+| lcsc shipping               | n/a                                                   | 11.21 | 1      | 11.21         |       | FALSE   |

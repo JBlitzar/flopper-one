@@ -3664,16 +3664,6 @@
 	)
 	(wire
 		(pts
-			(xy 142.24 17.78) (xy 140.97 17.78)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5b35f342-b10f-4b11-8280-803b98fb6ad8")
-	)
-	(wire
-		(pts
 			(xy 99.06 28.575) (xy 99.06 29.845)
 		)
 		(stroke
@@ -3961,6 +3951,16 @@
 			(type default)
 		)
 		(uuid "f15e8a60-c06b-4c34-b6ff-f841e6cebe24")
+	)
+	(wire
+		(pts
+			(xy 133.35 17.78) (xy 142.24 17.78)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f514d460-52c2-4e93-ae04-0487b6e83f21")
 	)
 	(wire
 		(pts
@@ -6519,7 +6519,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "a9cbb21f-a7ae-4408-a58f-4025c6a189fe")
 		(property "Reference" "R3"
 			(at 186.69 25.4 90)
@@ -6530,7 +6529,7 @@
 			)
 		)
 		(property "Value" "1.2kΩ"
-			(at 186.69 27.94 90)
+			(at 186.436 33.782 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7231,74 +7230,6 @@
 			(project ""
 				(path "/8fc37294-f81b-4810-89c7-f789c9f89558"
 					(reference "#PWR021")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R_US")
-		(at 137.16 17.78 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "ff5f4260-0bf8-40ed-9b21-2cf3b60f4fca")
-		(property "Reference" "R6"
-			(at 137.16 11.43 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "0.4Ω"
-			(at 137.16 13.97 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
-			(at 137.414 16.764 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 137.16 17.78 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor, US symbol"
-			(at 137.16 17.78 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "3a5659f8-c371-4ee5-895c-08a4b587cd95")
-		)
-		(pin "2"
-			(uuid "721a64ef-8508-4543-aeb2-c151720ca286")
-		)
-		(instances
-			(project ""
-				(path "/8fc37294-f81b-4810-89c7-f789c9f89558"
-					(reference "R6")
 					(unit 1)
 				)
 			)
