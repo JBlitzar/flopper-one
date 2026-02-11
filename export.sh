@@ -2,7 +2,10 @@
 /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli sch export svg --output docs/schem PCB/flopper_one/*.kicad_sch
 /Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli pcb export svg --output docs/pcb.svg --theme _builtin_default PCB/flopper_one/*.kicad_pcb --layers "F.Cu,B.Cu,F.Silkscreen,B.Silkscreen,Edge.Cuts,F.Fab,B.Fab"
 
+sed -i '' 's/fill:#4D7FC4; fill-opacity:1.0000/fill:#4D7FC4; fill-opacity:0.6/g' docs/pcb.svg
 
+
+sed -i '' 's/fill:#C83434; fill-opacity:1.0000/fill:#C83434; fill-opacity:0.6/g' docs/pcb.svg
 # Extract viewBox dimensions
 VIEWBOX=$(grep -o 'viewBox="[^"]*"' docs/pcb.svg | sed 's/viewBox="[^ ]* [^ ]* \([^ ]*\) \([^"]*\)"/\1 \2/')
 WIDTH=$(echo $VIEWBOX | cut -d' ' -f1)
