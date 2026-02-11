@@ -71,7 +71,7 @@ This BOM format has been [approved](https://hackclub.slack.com/archives/C09CMJV6
 
 | Item                        | Link                                                  | Cost  | Amount | total cost of | total | Gotten? |
 | --------------------------- | ----------------------------------------------------- | ----- | ------ | ------------- | ----- | ------- |
-|                             |                                                       |       |        |               | 37.34 | FALSE   |
+|                             |                                                       |       |        |               | 32.15 | FALSE   |
 | esp32 wroom                 | already own                                           | 0     | 1      | 0             |       | TRUE    |
 | TSOP38238                   | https://www.lcsc.com/product-detail/C141632.html      | 0.73  | 1      | 0.73          |       | FALSE   |
 | TSAL6200                    | https://www.lcsc.com/product-detail/C55528.html       | 0.83  | 1      | 0.83          |       | FALSE   |
@@ -90,5 +90,5 @@ This BOM format has been [approved](https://hackclub.slack.com/archives/C09CMJV6
 | 2n2222a (2n2219 substitute) | https://www.lcsc.com/product-detail/C118536.html      | 0.77  | 1      | 0.77          |       | FALSE   |
 | LEDS (green, red)           | already own                                           | 0     | 2      | 0             |       | TRUE    |
 | header pins                 | can get for free                                      | 0     | 2      | 0             |       | FALSE   |
-| aliexpress shipping         | n/a                                                   | 5.19  | 1      | 5.19          |       | FALSE   |
+| aliexpress shipping         | n/a                                                   | 0     | 1      | 0             |       | FALSE   |
 | lcsc shipping               | n/a                                                   | 11.21 | 1      | 11.21         |       | FALSE   |
