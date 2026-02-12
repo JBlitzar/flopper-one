@@ -1519,7 +1519,7 @@
 		(property "Reference" "J2"
 			(at 0 -2.38 0)
 			(layer "F.SilkS")
-			(uuid "1ac82d9c-934f-4fe5-af38-fb3b1a16f0ff")
+			(uuid "eac94033-6442-47b6-aff2-ebeb0e092886")
 			(effects
 				(font
 					(size 1 1)
@@ -1530,7 +1530,7 @@
 		(property "Value" "<- ST7789"
 			(at 0 17.62 0)
 			(layer "F.Fab")
-			(uuid "d93418e9-862d-4527-a4e8-79d7c71890c6")
+			(uuid "93230986-8e40-4a6d-9f48-ec1450558e60")
 			(effects
 				(font
 					(size 1 1)
@@ -1542,7 +1542,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "b9954db8-d9c2-4cb2-87f9-5940993bb497")
+			(uuid "aaace304-9c1b-40db-a14f-d4f6e24d5afc")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1554,7 +1554,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "cec93f32-a8cc-4097-975e-2420c1d42466")
+			(uuid "375d293b-ccac-49e6-9f19-8f747975b028")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1827,6 +1827,17 @@
 			)
 			(rotate
 				(xyz -0 -0 -0)
+			)
+		)
+		(model "${KIPRJMOD}/st7789.stp"
+			(offset
+				(xyz -18 -7.5 2)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -0 -0 90)
 			)
 		)
 	)
