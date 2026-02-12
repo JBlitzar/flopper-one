@@ -9,7 +9,7 @@
   - [x] A BOM, in CSV format in the root directory, WITH LINKS [BOM.csv](/BOM.csv)
   - [x] The source files for your PCB, if you have one (.kicad_pro, .kicad_sch, gerbers.zip, etc) [/PCB](/PCB)
   - [x] A .STEP file of your project's 3D CAD model as well as the source design file format (.f3d, .FCStd, etc) [onshape link](https://cad.onshape.com/documents/9300b75f1e7f06f54f467759/w/c520f6bc2b96db9c93dcf298/e/5722897a21a6c9c2b29192d7?renderMode=0&uiState=698d3217f059ee7d75fd844a) also in [CAD/README.md](/CAD/README.md)
-  - [x] ANY other files that are part of your project (firmware, libraries, references, etc) [/PCB](/PCB)
+  - [x] ANY other files that are part of your project (firmware, libraries, references, etc) [/PCB](/PCB) should contain all "extra" files
   - [x] Everything easily readable and organized into folders
   - [x] A .STEP file with all electronics and CAD (required for approval) [CAD/flopper_one_assembly.step](/CAD/flopper_one_assembly.step)
 - [x] YOUR README.md FILE CONTAINS THE FOLLOWING:
