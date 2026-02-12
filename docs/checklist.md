@@ -1,0 +1,27 @@
+# Requirements
+
+- [x] YOUR PROJECT DESIGN IS FULLY COMPLETE:
+  - [x] It is an original, customized design by you, and is not a direct copy of any guide
+  - [x] It has a complete CAD assembly, with all components (including electronics) (see CAD/README.md)
+  - [x] You have firmware present, even if it's untested (firmware/)
+  - [x] You have sanity checked your design with someone else (in #blueprint)
+- [x] YOUR GITHUB REPOSITORY CONTAINS ALL OF YOUR PROJECT FILES:
+  - [x] A BOM, in CSV format in the root directory, WITH LINKS (BOM.csv)
+  - [x] The source files for your PCB, if you have one (.kicad_pro, .kicad_sch, gerbers.zip, etc) (/PCB)
+  - [x] A .STEP file of your project's 3D CAD model as well as the source design file format (.f3d, .FCStd, etc) (onshape link)
+  - [x] ANY other files that are part of your project (firmware, libraries, references, etc) (/PCB)
+  - [x] Everything easily readable and organized into folders
+  - [x] A .STEP file with all electronics and CAD (required for approval) (CAD/flopper_one_assembly.step)
+- [x] YOUR README.md FILE CONTAINS THE FOLLOWING:
+  - [x] A short description of what your project is (see README.md)
+  - [x] A couple sentences on why you made the project (see README.md)
+  - [x] A couple sentences on how to use your project (see README.md)
+- [x] PICTURES OF YOUR PROJECT:
+  - [x] A screenshot of a full 3D model with your project (see CAD/together.png)
+  - [x] A screenshot of your PCB, if you have one (see README.md)
+  - [x] A wiring diagram, if applicable (schematic in README)
+  - [x] A BOM in table format at the end of the README, with links (end of README)
+- [x] YOU DO NOT HAVE:
+  - X AI Generated READMEs, Journal entries, or images of your project
+  - X Designs taken from other people
+  - X Missing firmware/software
