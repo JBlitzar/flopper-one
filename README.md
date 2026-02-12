@@ -4,8 +4,6 @@
 
 <img src="CAD/br1.png">
 
-<img src="CAD/br4.png">
-
 <table width="100%">
     <tr>
         <td>
