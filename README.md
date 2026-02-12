@@ -1,7 +1,5 @@
 # flopper-one
 
-# [NOTE TO THE REVIEWERS-- PLEASE READ!](docs/note.md)
-
 <img src="CAD/br1.png">
 
 <img src="CAD/br2.png">
