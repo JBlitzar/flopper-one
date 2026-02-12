@@ -1,5 +1,9 @@
 # CAD.
 
+## UPDATE
+
+Onshape link: https://cad.onshape.com/documents/9300b75f1e7f06f54f467759/w/c520f6bc2b96db9c93dcf298/e/5722897a21a6c9c2b29192d7?renderMode=0&uiState=698d3217f059ee7d75fd844a
+
 The blueprint submission guidelines state "It has a complete CAD assembly, with all components (including electronics!)"
 
 flopper_one.step contains a step file of just the PCB
