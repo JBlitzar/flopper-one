@@ -90,3 +90,7 @@ This BOM format has been [approved](https://hackclub.slack.com/archives/C09CMJV6
 | header pins                 | can get for free                                      | 0     | 2      | 0             |       | TRUE    |
 | aliexpress shipping         | n/a                                                   | 0     | 1      | 0             |       | FALSE   |
 | lcsc shipping               | n/a                                                   | 11.21 | 1      | 11.21         |       | FALSE   |
+
+## How to use
+
+Flash the firmware in /firmware using platformIO in vscode. For now, it runs a self-test. In the future, once I verify hardware is working etc, I'll put more details about that in there.
