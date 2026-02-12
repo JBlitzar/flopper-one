@@ -94,3 +94,5 @@ This BOM format has been [approved](https://hackclub.slack.com/archives/C09CMJV6
 ## How to use
 
 Flash the firmware in /firmware using platformIO in vscode. For now, it runs a self-test. In the future, once I verify hardware is working etc, I'll put more details about that in there.
+
+See more in [firmware/README.md](firmware/README.md) !
