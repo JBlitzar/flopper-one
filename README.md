@@ -86,9 +86,9 @@ This BOM format has been [approved](https://hackclub.slack.com/archives/C09CMJV6
 | 1kΩ resistor                | Can get for free                                      | 0     | 3      | 0             |       | TRUE    |
 | 47-100Ω resistor            | Can get for free                                      | 0     | 1      | 0             |       | TRUE    |
 | 1.2kΩ resistor              | Can get substitute for free                           | 0     | 1      | 0             |       | TRUE    |
-| 10uf capacitor              | can get for free                                      | 0     | 2      | 0             |       | FALSE   |
+| 10uf capacitor              | can get for free                                      | 0     | 2      | 0             |       | TRUE    |
 | 2n2222a (2n2219 substitute) | https://www.lcsc.com/product-detail/C118536.html      | 0.77  | 1      | 0.77          |       | FALSE   |
 | LEDS (green, red)           | already own                                           | 0     | 2      | 0             |       | TRUE    |
-| header pins                 | can get for free                                      | 0     | 2      | 0             |       | FALSE   |
+| header pins                 | can get for free                                      | 0     | 2      | 0             |       | TRUE    |
 | aliexpress shipping         | n/a                                                   | 0     | 1      | 0             |       | FALSE   |
 | lcsc shipping               | n/a                                                   | 11.21 | 1      | 11.21         |       | FALSE   |
