@@ -93,6 +93,6 @@ This BOM format has been [approved](https://hackclub.slack.com/archives/C09CMJV6
 
 ## How to use
 
-Plug the esp into your computer and flash the firmware in /firmware using [platformIO](https://docs.platformio.org/en/latest/core/quickstart.html) in vscode. For now, firmware will run a self-test. In the future, once I verify hardware is working etc, I'll put more details about that in there.
+Plug the esp into your computer and flash the firmware in /firmware using [platformIO](https://docs.platformio.org/en/latest/core/quickstart.html) in vscode. For now, firmware will run a self-test. In the future, once I verify hardware is working etc, I'll put more details about that in there. (once I have a real UI working)
 
 See more in [firmware/README.md](firmware/README.md) !
