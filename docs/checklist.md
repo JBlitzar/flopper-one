@@ -15,7 +15,7 @@
 - [x] YOUR README.md FILE CONTAINS THE FOLLOWING:
   - [x] A short description of what your project is [README.md](/README.md)
   - [x] A couple sentences on why you made the project [README.md](/README.md)
-  - [x] A couple sentences on how to use your project [README.md](/README.md)
+  - [x] A couple sentences on how to use your project [README.md](https://github.com/JBlitzar/flopper-one?tab=readme-ov-file#how-to-use)
 - [x] PICTURES OF YOUR PROJECT:
   - [x] A screenshot of a full 3D model with your project (see [CAD/together.png](/CAD/together.png))
   - [x] A screenshot of your PCB, if you have one (see [README.md](https://github.com/JBlitzar/flopper-one?tab=readme-ov-file#pcb))
