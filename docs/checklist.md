@@ -13,7 +13,7 @@
   - [x] Everything easily readable and organized into folders
   - [x] A .STEP file with all electronics and CAD (required for approval) [CAD/flopper_one_assembly.step](/CAD/flopper_one_assembly.step)
 - [x] YOUR README.md FILE CONTAINS THE FOLLOWING:
-  - [x] A short description of what your project is [README.md](/README.md)
+  - [x] A short description of what your project is [README.md](/README.md) _"Flipper zero-type firmware with an ESP32. Featuring IR, NFC, BLE, wifi, with a dpad and an lcd display. Not designed using any guide!"_
   - [x] A couple sentences on why you made the project [README.md](/README.md)
   - [x] A couple sentences on how to use your project [README.md](https://github.com/JBlitzar/flopper-one?tab=readme-ov-file#how-to-use)
 - [x] PICTURES OF YOUR PROJECT:
