@@ -18,9 +18,9 @@
   - [x] A couple sentences on how to use your project [README.md](/README.md)
 - [x] PICTURES OF YOUR PROJECT:
   - [x] A screenshot of a full 3D model with your project (see [CAD/together.png](/CAD/together.png))
-  - [x] A screenshot of your PCB, if you have one (see [README.md](/README.md))
-  - [x] A wiring diagram, if applicable (see [schematic in README](/README.md))
-  - [x] A BOM in table format at the end of the README, with links (see [end of README](/README.md))
+  - [x] A screenshot of your PCB, if you have one (see [README.md](https://github.com/JBlitzar/flopper-one?tab=readme-ov-file#pcb))
+  - [x] A wiring diagram, if applicable (see [schematic in README](https://github.com/JBlitzar/flopper-one?tab=readme-ov-file#schematic))
+  - [x] A BOM in table format at the end of the README, with links (see [end of README](https://github.com/JBlitzar/flopper-one?tab=readme-ov-file#bom-in-table-format))
 - [x] YOU DO NOT HAVE:
   - X AI Generated READMEs, Journal entries, or images of your project
   - X Designs taken from other people
