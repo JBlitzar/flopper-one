@@ -3982,6 +3982,16 @@
 		)
 		(uuid "fcd740a7-f264-41c8-9c12-d49f545c1843")
 	)
+	(label "DC"
+		(at 91.44 80.01 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1b2e4ac8-aab6-4d06-ba2d-debb21d57ac1")
+	)
 	(label "SCL2"
 		(at 35.56 80.01 0)
 		(effects
@@ -4011,6 +4021,16 @@
 			(justify left bottom)
 		)
 		(uuid "2afb7aae-7577-4753-944b-54c7cd6063cb")
+	)
+	(label "RES"
+		(at 35.56 85.09 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "319ee771-4dbf-4a1d-938f-4a6c45dc60a5")
 	)
 	(label "SCL2"
 		(at 93.98 52.07 90)
@@ -4061,6 +4081,16 @@
 			(justify left bottom)
 		)
 		(uuid "5122f099-6a87-4f02-afbc-dc598305a497")
+	)
+	(label "DC"
+		(at 35.56 87.63 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "5311c9f3-2503-4cd8-a955-9695545240cb")
 	)
 	(label "VIN"
 		(at 168.91 81.28 180)
@@ -4121,6 +4151,16 @@
 			(justify left bottom)
 		)
 		(uuid "8501900c-8250-4f4a-8c26-9c6b42691755")
+	)
+	(label "RES"
+		(at 93.98 80.01 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "85ebb6bf-deaf-40ea-a899-3aa402926bce")
 	)
 	(label "P1"
 		(at 104.14 80.01 270)

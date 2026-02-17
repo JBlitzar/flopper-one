@@ -15,8 +15,14 @@ static constexpr uint8_t DPAD_CENTER = 25;
 static constexpr uint8_t PN532_SDA = 17;     // pn532 nfc/rfid thing
 static constexpr uint8_t PN532_SCL = 15;
 
-static constexpr uint8_t DISP_SCL = 18;      // (as wired) display clock
-static constexpr uint8_t DISP_SDA = 19;      // (as wired) display data
+// Display (ST7789) is SPI, not I2C.
+static constexpr uint8_t DISP_SCL = 18;      // SPI SCLK (as wired)
+static constexpr uint8_t DISP_SDA = 19;      // SPI MOSI (as wired)
+static constexpr uint8_t DISP_DC  = 32;      // SPI D/C (as wired)
+
+// Preferred names
+static constexpr uint8_t DISP_SCLK = DISP_SCL;
+static constexpr uint8_t DISP_MOSI = DISP_SDA;
 
 static constexpr uint8_t IR_LED = 16;
 
