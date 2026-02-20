@@ -2,7 +2,7 @@
 
 <img src="CAD/br1.png">
 
-<img src="CAD/br2.png">
+<!-- <img src="CAD/br2.png"> -->
 
 <table width="100%">
     <tr>
