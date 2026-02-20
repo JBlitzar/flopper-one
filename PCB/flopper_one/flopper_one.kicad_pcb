@@ -34,6 +34,47 @@
 		(45 "User.4" user)
 	)
 	(setup
+		(stackup
+			(layer "F.SilkS"
+				(type "Top Silk Screen")
+			)
+			(layer "F.Paste"
+				(type "Top Solder Paste")
+			)
+			(layer "F.Mask"
+				(type "Top Solder Mask")
+				(color "Black")
+				(thickness 0.01)
+			)
+			(layer "F.Cu"
+				(type "copper")
+				(thickness 0.035)
+			)
+			(layer "dielectric 1"
+				(type "core")
+				(thickness 1.51)
+				(material "FR4")
+				(epsilon_r 4.5)
+				(loss_tangent 0.02)
+			)
+			(layer "B.Cu"
+				(type "copper")
+				(thickness 0.035)
+			)
+			(layer "B.Mask"
+				(type "Bottom Solder Mask")
+				(color "Black")
+				(thickness 0.01)
+			)
+			(layer "B.Paste"
+				(type "Bottom Solder Paste")
+			)
+			(layer "B.SilkS"
+				(type "Bottom Silk Screen")
+			)
+			(copper_finish "None")
+			(dielectric_constraints no)
+		)
 		(pad_to_mask_clearance 0)
 		(allow_soldermask_bridges_in_footprints no)
 		(tenting front back)
@@ -7927,7 +7968,7 @@
 		(layer "Edge.Cuts")
 		(uuid "e8c3c4df-83fc-49c3-8fc8-b80c29d54218")
 	)
-	(gr_text "SCREEN HERE"
+	(gr_text "ST7789"
 		(at 48 49.25 0)
 		(layer "F.SilkS")
 		(uuid "7c326a12-39ba-4ab9-bc07-93a3a0cf10ce")
@@ -7940,7 +7981,7 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "ESP HERE"
+	(gr_text "ESP32"
 		(at 54.25 69.25 0)
 		(layer "F.SilkS")
 		(uuid "c4f80120-fb85-4537-a304-7d1e43869725")
@@ -8030,8 +8071,8 @@
 			(justify left bottom mirror)
 		)
 	)
-	(gr_text "PN532 HERE"
-		(at 66.5 66.25 -0)
+	(gr_text "PN532"
+		(at 66.5 66.25 0)
 		(layer "B.SilkS")
 		(uuid "367feee4-8374-450f-97b0-0d2798239263")
 		(effects
