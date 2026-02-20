@@ -84,4 +84,4 @@ rm -f PCB/flopper_one/gerbers/*.gbr
 rm PCB/flopper_one/flopper_one_gerbers.zip
 zip -j PCB/flopper_one/flopper_one_gerbers.zip PCB/flopper_one/gerbers/*.*r*
 
-blender "CAD/flopper.blend" --python "CAD/blender_export.py" --quit
+# blender "CAD/flopper.blend" --python "CAD/blender_export.py" --quit
