@@ -13,20 +13,7 @@ root_pcb_objs = [
 if not root_pcb_objs:
     raise RuntimeError("No root PCB objects found!")
 
-
-selected_root_pcbs = [obj for obj in root_pcb_objs if obj.select_get()]
-if not selected_root_pcbs:
-    newest = max(root_pcb_objs, key=lambda o: o.as_pointer())
-else:
-    newest = selected_root_pcbs[-1]
-
-
-for obj in root_pcb_objs:
-    if obj != newest:
-        for child in obj.children:
-            bpy.data.objects.remove(child, do_unlink=True)
-        bpy.data.objects.remove(obj, do_unlink=True)
-
+newest = root_pcb_objs[0]
 
 bpy.ops.object.select_all(action="DESELECT")
 newest.select_set(True)
