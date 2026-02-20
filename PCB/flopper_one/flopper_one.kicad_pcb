@@ -7969,7 +7969,7 @@
 		(uuid "e8c3c4df-83fc-49c3-8fc8-b80c29d54218")
 	)
 	(gr_text "ST7789"
-		(at 48 49.25 0)
+		(at 52.5 39 0)
 		(layer "F.SilkS")
 		(uuid "7c326a12-39ba-4ab9-bc07-93a3a0cf10ce")
 		(effects
