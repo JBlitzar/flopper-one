@@ -1,15 +1,21 @@
 import bpy
 import math
+import os
+
+bpy.ops.pcb2blender.import_pcb3d(
+    filepath=os.path.join(os.path.dirname(bpy.data.filepath), "flopper.pcb3d")
+)
 
 
-root_pcb_objs = [obj for obj in bpy.data.objects if "PCB" in obj.name and obj.parent is None]
+root_pcb_objs = [
+    obj for obj in bpy.data.objects if "PCB" in obj.name and obj.parent is None
+]
 if not root_pcb_objs:
     raise RuntimeError("No root PCB objects found!")
 
 
 selected_root_pcbs = [obj for obj in root_pcb_objs if obj.select_get()]
 if not selected_root_pcbs:
-    
     newest = max(root_pcb_objs, key=lambda o: o.as_pointer())
 else:
     newest = selected_root_pcbs[-1]
@@ -40,7 +46,7 @@ bpy.context.scene.render.engine = "CYCLES"
 bpy.context.scene.render.resolution_x = 1920
 bpy.context.scene.render.resolution_y = 1080
 bpy.context.scene.render.resolution_percentage = 100
-bpy.context.scene.render.filepath = "//../docs/br1.png"
+bpy.context.scene.render.filepath = "//br1.png"
 bpy.ops.render.render(write_still=True)
 
 print("Render complete!")
