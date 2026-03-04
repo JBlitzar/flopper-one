@@ -1,8 +1,8 @@
-MenuNode
+✅MenuNode
   name: string
   children: [MenuNode | App]
 
-App (subclass of MenuNode, implements InputHandler)
+✅App (subclass of MenuNode, implements InputHandler)
   onEnter()
   onExit()
   tick()
