@@ -38,14 +38,14 @@ namespace flopper
 
             if (evt == InputEvent::UP)
             {
-                if (selected_index_ > 0)
+                if (!children.empty() && selected_index_ > 0)
                 {
                     selected_index_--;
                 }
             }
             else if (evt == InputEvent::DOWN)
             {
-                if (selected_index_ < children.size() - 1)
+                if (!children.empty() && selected_index_ < children.size() - 1)
                 {
                     selected_index_++;
                 }
@@ -73,8 +73,11 @@ namespace flopper
                 }
                 else
                 {
-                    history_.push_back(selected);
-                    selected_index_ = 0;
+                    if (!selected->children.empty())
+                    { // make sure subdir has children
+                        history_.push_back(selected);
+                        selected_index_ = 0;
+                    }
                 }
             }
         }
