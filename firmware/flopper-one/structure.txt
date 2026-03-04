@@ -4,11 +4,15 @@ Display singleton
     has methods that simply consume data and update physical state.
 Menu system: The only thing that talks to the display. Has an OOP heirarchy of MenuNodes with children. Auto building scrollable lists. Talks to inputs. 
 MenuNode:
-  has name: string, children: \[MenuNode\]?, callback: callable?
+  has name: string, children: \[MenuNode\]?, callback: callable?, tick: callable?
   Later a bitmap icon or something
 MenuManager:
+  Another singleton I guess? 
   consumes keyboard inputs (only such system), renders the list of nodes, handles tree heirarchy.
+  Exposes update(), usually just called to redraw upon button press, but exposed for all to call
+  maintains selection state, item in menu heirarchy
 
 Define modules for hardware-specific functions. 
     BLE and such start having troubles. If we scan for a list of devices, must we dynamically update global state?
+    In tick, BLE finds new devices. If new device found, update by calling global update()
 Leaf nodes call arbitrary functions as their Callable
