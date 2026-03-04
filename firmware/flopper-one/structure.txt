@@ -1,18 +1,49 @@
-Display driver:
-    Functions: display rows of text, diff colors, (rounded) rectangles, etc.
-Display singleton
-    has methods that simply consume data and update physical state.
-Menu system: The only thing that talks to the display. Has an OOP heirarchy of MenuNodes with children. Auto building scrollable lists. Talks to inputs. 
-MenuNode:
-  has name: string, children: \[MenuNode\]?, callback: callable?, tick: callable?
-  Later a bitmap icon or something
-MenuManager:
-  Another singleton I guess? 
-  consumes keyboard inputs (only such system), renders the list of nodes, handles tree heirarchy.
-  Exposes update(), usually just called to redraw upon button press, but exposed for all to call
-  maintains selection state, item in menu heirarchy
+MenuNode
+  name: string
+  children: [MenuNode | App]
 
-Define modules for hardware-specific functions. 
-    BLE and such start having troubles. If we scan for a list of devices, must we dynamically update global state?
-    In tick, BLE finds new devices. If new device found, update by calling global update()
-Leaf nodes call arbitrary functions as their Callable
+App (subclass of MenuNode, implements InputHandler)
+  onEnter()
+  onExit()
+  tick()
+  draw()
+  exit()         calls onExit, pops input stack, returns to menu
+
+InputHandler (interface)
+  onInput(event): null
+
+InputDispatcher (singleton) Handles debouncing and dispatches on rising edge.
+  stack: [InputHandler]
+  push(handler), pop(handler)
+  dispatch(event) -> top of stack only
+
+
+MenuManager (singleton, implements InputHandler)
+  root: MenuNode
+  currentNode: MenuNode
+  activeApp: App | null
+  handles: UP/DOWN/SELECT/BACK navigation
+  on SELECT of App -> app.onEnter(), push app to InputDispatcher
+  on BACK -> navigate up tree
+
+Display (singleton)
+  primitive drawing (+text) only
+  owned entirely by whoever is on top of InputDispatcher
+  Think:
+  clear(color)
+  drawText(x, y, str, color, size)
+  drawRect(x, y, w, h, color, radius)
+  fillRect(x, y, w, h, color)
+
+
+
+UI 
+    UI drawing methods. Think:
+    drawList(display, items, selectedIndex)
+    drawConfirm(display, message)
+    drawStatusMessage(display, message)
+
+Global loop:
+  poll InputDispatcher
+  tick menumanager, which ticks the current app if app open
+  ... that's it lol
