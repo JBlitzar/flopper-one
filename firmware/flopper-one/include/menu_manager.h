@@ -107,6 +107,7 @@ namespace flopper
         size_t selected_index_ = 0;
         App *active_app_ = nullptr;
         MenuManager() = default;
+        std::string breadcrumbs = "";
 
         // copied + edited from google AI overview lol
 
@@ -118,7 +119,7 @@ namespace flopper
 
         void draw_menu_()
         {
-            std::string breadcrumbs = "";
+            breadcrumbs = "";
 
             for (int i = 0; i < history_.size(); i++)
             {
