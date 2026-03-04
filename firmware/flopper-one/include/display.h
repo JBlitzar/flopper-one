@@ -22,28 +22,33 @@ namespace flopper
             tft.fillScreen(color);
         }
 
-        void draw_text(int x, int y, std::string &str, uint32_t color, int size)
+        void draw_text(int x, int y, const char *str, uint32_t color, int size)
         {
             tft.setTextColor(color, TFT_BLACK);
             tft.setTextSize(size);
-            tft.drawString(str.c_str(), x, y);
+            tft.drawString(str, x, y);
         }
 
-        void draw_text(int x, int y, std::string &str, uint32_t color, int size, uint32_t highlight)
+        void draw_text(int x, int y, const char *str, uint32_t color, int size, uint32_t highlight)
         {
             tft.setTextColor(color, highlight, true);
             tft.setTextSize(size);
-            tft.drawString(str.c_str(), x, y);
+            tft.drawString(str, x, y);
         }
 
-        void fill_rect(int x, int y, int w, int h, uint32_t color)
+        void draw_rect(int x, int y, int w, int h, uint32_t color, int r = 0)
         {
-            tft.fillRect(x, y, w, h, color);
+            if (r > 0)
+                tft.drawRoundRect(x, y, w, h, r, color);
+            else
+                tft.drawRect(x, y, w, h, color);
         }
-
-        void fill_rect(int x, int y, int w, int h, uint32_t color, int r)
+        void fill_rect(int x, int y, int w, int h, uint32_t color, int r = 0)
         {
-            tft.fillRoundRect(x, y, w, h, r, color);
+            if (r > 0)
+                tft.fillRoundRect(x, y, w, h, r, color);
+            else
+                tft.fillRect(x, y, w, h, color);
         }
 
     private:
