@@ -12,7 +12,7 @@ App (subclass of MenuNode, implements InputHandler)
 ✅InputHandler (interface)
   onInput(event): null
 
-InputDispatcher (singleton) Handles debouncing and dispatches on rising edge.
+✅InputDispatcher (singleton) Handles debouncing and dispatches on rising edge.
   stack: [InputHandler]
   push(handler), pop(handler)
   dispatch(event) -> top of stack only
