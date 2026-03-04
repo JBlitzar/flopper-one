@@ -18,7 +18,7 @@
   dispatch(event) -> top of stack only
 
 
-MenuManager (singleton, implements InputHandler)
+✅MenuManager (singleton, implements InputHandler)
   root: MenuNode
   currentNode: MenuNode
   activeApp: App | null

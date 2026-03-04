@@ -80,7 +80,7 @@ namespace flopper
             if (!handlers.empty())
             {
                 // magic fix instead of using . notation idk
-                handlers.top()->onInput(event);
+                handlers.top()->on_input(event);
             }
         }
 

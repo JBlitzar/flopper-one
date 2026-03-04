@@ -19,10 +19,13 @@ namespace flopper
         virtual void draw() = 0;
         virtual void on_input(InputEvent event) = 0;
 
+        bool wants_exit_ = false;
+
         void exit()
         {
             on_exit();
             InputDispatcher::get_instance().pop();
+            wants_exit_ = true;
         }
     };
 

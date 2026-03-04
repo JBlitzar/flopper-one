@@ -8,7 +8,7 @@ namespace flopper
     class InputHandler
     {
     public:
-        virtual void onInput(InputEvent event) = 0;
+        virtual void on_input(InputEvent event) = 0;
         virtual ~InputHandler() = default;
     };
 }
