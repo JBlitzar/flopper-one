@@ -9,7 +9,7 @@ App (subclass of MenuNode, implements InputHandler)
   draw()
   exit()         calls onExit, pops input stack, returns to menu
 
-InputHandler (interface)
+✅InputHandler (interface)
   onInput(event): null
 
 InputDispatcher (singleton) Handles debouncing and dispatches on rising edge.
