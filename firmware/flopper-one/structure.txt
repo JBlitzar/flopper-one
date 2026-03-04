@@ -26,7 +26,7 @@
   on SELECT of App -> app.onEnter(), push app to InputDispatcher
   on BACK -> navigate up tree
 
-Display (singleton)
+✅Display (singleton)
   primitive drawing (+text) only
   owned entirely by whoever is on top of InputDispatcher
   Think:
