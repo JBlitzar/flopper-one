@@ -5,6 +5,8 @@
 #include "input_event.h"
 #include <vector>
 #include <string>
+#include "display.h"
+#include "ui.h"
 
 namespace flopper
 {
@@ -126,7 +128,7 @@ namespace flopper
             }
 
             // draw breadcrumbs at top
-            // flopper::ui::draw_breadcrumbs(Display::instance(), breadcrumbs);
+            flopper::ui::draw_status(Display::get_instance(), breadcrumbs.c_str());
 
             auto &children = history_.back()->children;
             /*
@@ -145,7 +147,7 @@ namespace flopper
             std::vector<const char *> names;
             for (auto &child : children)
                 names.push_back(child->name.c_str());
+            flopper::ui::draw_list(Display::get_instance(), names, selected_index_);
         }
-        // flopper::ui::draw_list(Display::instance(), names.data(), names.size(), selected_index_);
     };
 }

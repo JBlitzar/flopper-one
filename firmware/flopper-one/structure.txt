@@ -37,7 +37,7 @@
 
 
 
-UI 
+✅UI 
     UI drawing methods. Think:
     drawList(display, items, selectedIndex)
     drawConfirm(display, message)
