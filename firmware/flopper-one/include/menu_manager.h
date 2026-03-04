@@ -108,6 +108,7 @@ namespace flopper
         App *active_app_ = nullptr;
         MenuManager() = default;
         std::string breadcrumbs = "";
+        std::vector<const char *> names;
 
         // copied + edited from google AI overview lol
 
@@ -148,7 +149,8 @@ namespace flopper
                     // draw normal
                 }
             }*/
-            std::vector<const char *> names;
+            
+            names.clear();
             for (auto &child : children)
                 names.push_back(child->name.c_str());
             flopper::ui::draw_list(Display::get_instance(), names, selected_index_);
