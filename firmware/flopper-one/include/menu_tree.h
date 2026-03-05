@@ -10,6 +10,8 @@
 #include "apps/ble_hid_app.h"
 #include "apps/ble_mitm_app.h"
 #include "apps/ble_sour_apple.h"
+#include "apps/ble_test_app.h"
+
 #include "menu_node.h"
 namespace flopper
 {
@@ -24,6 +26,7 @@ namespace flopper
     inline BleHidApp ble_hid;
     inline BleMitmApp ble_mitm;
     inline SourApple ble_sourapple;
+    inline BleTestApp ble_test;
 
     inline MenuNode ir_menu("IR");
     inline MenuNode ble_menu("BLE");
@@ -51,6 +54,7 @@ namespace flopper
         ble_menu.add_child(&ble_hid);
         ble_menu.add_child(&ble_mitm);
         ble_menu.add_child(&ble_sourapple);
+        ble_menu.add_child(&ble_test);
     }
 
 }
