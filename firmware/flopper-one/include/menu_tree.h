@@ -4,6 +4,7 @@
 #include "apps/ir_sniffer_app.h"
 #include "apps/ir_emitter_app.h"
 #include "apps/wifi_scan_app.h"
+#include "apps/wifi_ap_sink_app.h"
 #include "apps/ble_scan_app.h"
 #include "apps/ble_sink_app.h"
 #include "apps/ble_hid_app.h"
@@ -16,6 +17,7 @@ namespace flopper
     inline IrEmitterApp ir_emit;
 
     inline WifiScanApp wifi_scan;
+    inline WifiApSinkApp wifi_ap_sink;
 
     inline BleScanApp ble_scan;
     inline BleSinkApp ble_sink;
@@ -42,6 +44,7 @@ namespace flopper
         ir_menu.add_child(&ir_emit);
 
         wifi_menu.add_child(&wifi_scan);
+        wifi_menu.add_child(&wifi_ap_sink);
 
         ble_menu.add_child(&ble_scan);
         ble_menu.add_child(&ble_sink);
