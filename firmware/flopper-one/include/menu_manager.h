@@ -68,6 +68,7 @@ namespace flopper
                 if (selected->is_app_)
                 {
                     active_app_ = static_cast<App *>(selected);
+                    active_app_->wants_exit_ = false;
                     active_app_->on_enter();
                     InputDispatcher::get_instance().push(active_app_);
                 }
@@ -86,7 +87,6 @@ namespace flopper
         {
             if (active_app_ && active_app_->wants_exit_)
             {
-                InputDispatcher::get_instance().pop();
                 active_app_ = nullptr;
 
                 draw_menu_();

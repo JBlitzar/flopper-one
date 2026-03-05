@@ -1,30 +1,31 @@
 #pragma once
 
+#include <Arduino.h>
 #include "input_event.h"
 #include "input_handler.h"
 #include "flopper_pins.h"
 #include <stack>
 
-struct Button
-{
-    uint8_t pin;
-    flopper::InputEvent event;
-    bool was_pressed = false;
-    uint32_t last_fired = 0;
-
-    Button(uint8_t p, flopper::InputEvent e, bool wp) : pin(p), event(e), was_pressed(wp), last_fired(0) {}
-    Button(uint8_t p, flopper::InputEvent e) : pin(p), event(e), was_pressed(false), last_fired(0) {}
-};
-
-Button buttons_[5] = {
-    {flopper::pins::DPAD_UP, flopper::InputEvent::UP},
-    {flopper::pins::DPAD_DOWN, flopper::InputEvent::DOWN},
-    {flopper::pins::DPAD_CENTER, flopper::InputEvent::CENTER},
-    {flopper::pins::DPAD_LEFT, flopper::InputEvent::LEFT},
-    {flopper::pins::DPAD_RIGHT, flopper::InputEvent::RIGHT}};
-
 namespace flopper
 {
+
+    struct Button
+    {
+        uint8_t pin;
+        InputEvent event;
+        bool was_pressed = false;
+        uint32_t last_fired = 0;
+
+        Button(uint8_t p, InputEvent e, bool wp) : pin(p), event(e), was_pressed(wp), last_fired(0) {}
+        Button(uint8_t p, InputEvent e) : pin(p), event(e), was_pressed(false), last_fired(0) {}
+    };
+
+    inline Button buttons_[5] = {
+        {pins::DPAD_UP, InputEvent::UP},
+        {pins::DPAD_DOWN, InputEvent::DOWN},
+        {pins::DPAD_CENTER, InputEvent::CENTER},
+        {pins::DPAD_LEFT, InputEvent::LEFT},
+        {pins::DPAD_RIGHT, InputEvent::RIGHT}};
 
     class InputDispatcher
     {

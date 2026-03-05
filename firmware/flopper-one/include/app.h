@@ -10,8 +10,7 @@ namespace flopper
     class App : public MenuNode, public InputHandler
     {
     public:
-        bool is_app = true;
-        App(std::string name) : MenuNode(name) {}
+        App(std::string name) : MenuNode(name) { is_app_ = true; }
 
         virtual void on_enter() = 0;
         virtual void on_exit() = 0;
@@ -24,8 +23,8 @@ namespace flopper
         void exit()
         {
             on_exit();
-            InputDispatcher::get_instance().pop();
             wants_exit_ = true;
+            InputDispatcher::get_instance().pop();
         }
     };
 
