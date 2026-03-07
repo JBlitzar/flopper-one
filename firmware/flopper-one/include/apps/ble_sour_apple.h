@@ -157,7 +157,7 @@ namespace flopper
         NimBLEAdvertising *pAdvertising = nullptr;
         uint32_t delayMilliseconds = 200;
 
-        int last_adv_time_;
+        int last_adv_time_ = 0;
 
         static constexpr uint8_t DEVICES[][31] = {
             // Airpods
