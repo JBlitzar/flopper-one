@@ -25,3 +25,5 @@ Change the pins in the header file to match the scam mirrored pinout.
 solder in the lcsc parts
 
 cross fingers!
+
+![](flop.png)
