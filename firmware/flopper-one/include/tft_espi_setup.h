@@ -5,7 +5,7 @@
 
 #define ST7789_DRIVER
 
-#define TFT_WIDTH  240
+#define TFT_WIDTH 240
 #define TFT_HEIGHT 240
 
 // ESP32 SPI wiring
@@ -14,8 +14,8 @@
 #define TFT_MISO -1
 
 // Control pins
-#define TFT_DC  32
-#define TFT_CS  -1
+#define TFT_DC 32
+#define TFT_CS -1
 #define TFT_RST 33
 
 #define SPI_FREQUENCY 40000000
