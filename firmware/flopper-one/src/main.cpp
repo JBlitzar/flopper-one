@@ -1,35 +1,23 @@
 #include <Arduino.h>
 
-#include "flopper_pins.h"
-#include "self_test.h"
+#include "menu_tree.h"
+#include "menu_manager.h"
+#include "input_dispatcher.h"
+#include "log.h"
 
-static flopper::SelfTest selfTest(
-    flopper::PinSet{
-        flopper::pins::DPAD_UP,
-        flopper::pins::DPAD_LEFT,
-        flopper::pins::DPAD_RIGHT,
-        flopper::pins::DPAD_DOWN,
-        flopper::pins::DPAD_CENTER,
-        flopper::pins::TSOP_OUT,
-        flopper::pins::IR_LED,
-        flopper::pins::PN532_SDA,
-        flopper::pins::PN532_SCL,
-    },
-    flopper::SelfTestOptions(true, true, 20, true)
-);
+void setup()
+{
+    Serial.begin(115200);
+    delay(100);
+    flopper::build_menu_tree();
+    flopper::MenuManager::get_instance().set_root(&flopper::root);
+    flopper::InputDispatcher::get_instance().push(&flopper::MenuManager::get_instance());
 
-void setup() {
-  Serial.begin(115200);
-  delay(200);
-  while(!Serial && millis() < 3000);
-  delay(1000);
-  Serial.printf("init...\n");
-
-   selfTest.begin();
+    flopper::log::printf("BOOT", "boot %s %s", __DATE__, __TIME__);
 }
 
-void loop() {
-    Serial.println("Running...");
-  delay(1000);
-   selfTest.loop();
+void loop()
+{
+    flopper::InputDispatcher::get_instance().poll();
+    flopper::MenuManager::get_instance().tick();
 }

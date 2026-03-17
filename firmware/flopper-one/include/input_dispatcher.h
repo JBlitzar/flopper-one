@@ -1,0 +1,96 @@
+#pragma once
+
+#include <Arduino.h>
+#include "input_event.h"
+#include "input_handler.h"
+#include "flopper_pins.h"
+#include <stack>
+
+namespace flopper
+{
+
+    struct Button
+    {
+        uint8_t pin;
+        InputEvent event;
+        bool was_pressed = false;
+        uint32_t last_fired = 0;
+
+        Button(uint8_t p, InputEvent e, bool wp) : pin(p), event(e), was_pressed(wp), last_fired(0) {}
+        Button(uint8_t p, InputEvent e) : pin(p), event(e), was_pressed(false), last_fired(0) {}
+    };
+
+    inline Button buttons_[5] = {
+        {pins::DPAD_UP, InputEvent::UP},
+        {pins::DPAD_DOWN, InputEvent::DOWN},
+        {pins::DPAD_CENTER, InputEvent::CENTER},
+        {pins::DPAD_LEFT, InputEvent::LEFT},
+        {pins::DPAD_RIGHT, InputEvent::RIGHT}};
+
+    class InputDispatcher
+    {
+    public:
+        static InputDispatcher &get_instance()
+        {
+            static InputDispatcher instance;
+            return instance;
+        }
+
+        void push(InputHandler *handler)
+        {
+            handlers.push(handler);
+        }
+
+        void pop()
+        {
+            if (!handlers.empty())
+            {
+                handlers.pop();
+            }
+        }
+
+        void poll()
+        {
+            // poll GPIO
+            // debounce
+            // dispatch!
+            uint32_t now = millis();
+            for (auto &btn : buttons_)
+            {
+                bool pressed = digitalRead(btn.pin) == LOW;
+                if (pressed && !btn.was_pressed && (now - btn.last_fired > 50)) // rising edge, 50 ms debounce
+                {
+                    dispatch_(btn.event);
+                    btn.last_fired = now;
+                }
+                btn.was_pressed = pressed;
+            }
+        }
+
+    private:
+        InputDispatcher()
+        {
+            // init...
+            for (auto &btn : buttons_)
+                pinMode(btn.pin, INPUT_PULLUP);
+        };
+        std::stack<InputHandler *> handlers;
+
+        void dispatch_(InputEvent event)
+        {
+            if (!handlers.empty())
+            {
+                // magic fix instead of using . notation idk
+                handlers.top()->on_input(event);
+            }
+        }
+
+        // copied + edited from google AI overview lol
+
+        InputDispatcher(const InputDispatcher &) = delete;
+        InputDispatcher &operator=(const InputDispatcher &) = delete;
+
+        InputDispatcher(InputDispatcher &&) = delete;
+        InputDispatcher &operator=(InputDispatcher &&) = delete;
+    };
+}
