@@ -71,7 +71,7 @@ namespace flopper
                 }
                 if (items.empty())
                     items.push_back("(no devices yet)");
-                flopper::ui::draw_list(Display::get_instance(), items, selected_ < items.size() ? selected_ : 0);
+                flopper::ui::draw_list(Display::get_instance(), items, flopper::ui::clamp_index(selected_, items.size()));
                 return;
             }
 
@@ -91,18 +91,8 @@ namespace flopper
             if (state_ != State::Scanning)
                 return;
 
-            if (e == InputEvent::UP)
-            {
-                if (selected_ > 0)
-                    selected_--;
+            if (flopper::ui::apply_list_nav(e, selected_, entries_.size()))
                 return;
-            }
-            if (e == InputEvent::DOWN)
-            {
-                if (!entries_.empty() && selected_ + 1 < entries_.size())
-                    selected_++;
-                return;
-            }
 
             if (e == InputEvent::CENTER)
             {

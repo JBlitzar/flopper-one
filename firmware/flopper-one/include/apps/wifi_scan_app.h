@@ -95,7 +95,7 @@ namespace flopper
             if (items.empty())
                 items.push_back("(no APs yet)");
 
-            flopper::ui::draw_list(Display::get_instance(), items, selected_ < items.size() ? selected_ : 0);
+            flopper::ui::draw_list(Display::get_instance(), items, flopper::ui::clamp_index(selected_, items.size()));
         }
 
         void on_input(InputEvent e) override
@@ -135,18 +135,8 @@ namespace flopper
                 return;
             }
 
-            if (e == InputEvent::UP)
-            {
-                if (selected_ > 0)
-                    selected_--;
+            if (flopper::ui::apply_list_nav(e, selected_, entries_count_))
                 return;
-            }
-            if (e == InputEvent::DOWN)
-            {
-                if (entries_count_ && selected_ + 1 < entries_count_)
-                    selected_++;
-                return;
-            }
             if (e == InputEvent::RIGHT)
             {
                 if (entries_count_)

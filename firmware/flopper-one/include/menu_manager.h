@@ -36,21 +36,12 @@ namespace flopper
             MenuNode *current = history_.back();
             auto &children = current->children;
 
-            if (evt == InputEvent::UP)
+            if (flopper::ui::apply_list_nav(evt, selected_index_, children.size()))
             {
-                if (!children.empty() && selected_index_ > 0)
-                {
-                    selected_index_--;
-                }
+                return;
             }
-            else if (evt == InputEvent::DOWN)
-            {
-                if (!children.empty() && selected_index_ < children.size() - 1)
-                {
-                    selected_index_++;
-                }
-            }
-            else if (evt == InputEvent::LEFT)
+
+            if (evt == InputEvent::LEFT)
             {
                 if (history_.size() > 1)
                 {
@@ -153,7 +144,7 @@ namespace flopper
             names.clear();
             for (auto &child : children)
                 names.push_back(child->name.c_str());
-            flopper::ui::draw_list(Display::get_instance(), names, selected_index_);
+            flopper::ui::draw_list(Display::get_instance(), names, flopper::ui::clamp_index(selected_index_, names.size()));
         }
     };
 }

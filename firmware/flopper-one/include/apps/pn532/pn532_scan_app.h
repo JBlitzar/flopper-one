@@ -81,7 +81,7 @@ namespace flopper
 
             for (auto &s : lines_)
                 items_.push_back(s.c_str());
-            flopper::ui::draw_list(Display::get_instance(), items_, selected_ < items_.size() ? selected_ : 0);
+            flopper::ui::draw_list(Display::get_instance(), items_, flopper::ui::clamp_index(selected_, items_.size()));
         }
 
         void on_input(InputEvent e) override
@@ -99,18 +99,8 @@ namespace flopper
             if (!ok_)
                 return;
 
-            if (e == InputEvent::UP)
-            {
-                if (selected_ > 0)
-                    selected_--;
+            if (flopper::ui::apply_list_nav(e, selected_, tags_.size()))
                 return;
-            }
-            if (e == InputEvent::DOWN)
-            {
-                if (!tags_.empty() && selected_ + 1 < tags_.size())
-                    selected_++;
-                return;
-            }
             if (e == InputEvent::RIGHT)
             {
                 if (!tags_.empty())

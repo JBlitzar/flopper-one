@@ -1,37 +1,61 @@
 
-This directory is intended for project header files.
+# `include/` — firmware architecture + how to add apps
 
-A header file is a file containing C declarations and macro definitions
-to be shared between several project source files. You request the use of a
-header file in your project source file (C, C++, etc) located in `src` folder
-by including it, with the C preprocessing directive `#include'.
+This firmware is built around a small menu/app framework (all in headers under `include/`) with a single `loop()` entrypoint in `src/main.cpp`.
 
-```src/main.c
+## Key concepts
 
-#include "header.h"
+### Input
 
-int main (void)
-{
- ...
-}
-```
+- `InputEvent` (`include/input_event.h`): `UP`, `DOWN`, `LEFT`, `RIGHT`, `CENTER`.
+- `InputHandler` (`include/input_handler.h`): interface with `on_input(InputEvent)`.
+- `InputDispatcher` (`include/input_dispatcher.h`): singleton that debounces GPIO and dispatches **only to the top** of a stack of `InputHandler*`.
 
-Including a header file produces the same results as copying the header file
-into each source file that needs it. Such copying would be time-consuming
-and error-prone. With a header file, the related declarations appear
-in only one place. If they need to be changed, they can be changed in one
-place, and programs that include the header file will automatically use the
-new version when next recompiled. The header file eliminates the labor of
-finding and changing all the copies as well as the risk that a failure to
-find one copy will result in inconsistencies within a program.
+Flow:
 
-In C, the convention is to give header files names that end with `.h'.
+1. `loop()` calls `InputDispatcher::poll()`
+2. `poll()` reads buttons and dispatches rising-edge events to `handlers.top()`
 
-Read more about using header files in official GCC documentation:
+### Menu + apps
 
-* Include Syntax
-* Include Operation
-* Once-Only Headers
-* Computed Includes
+- `MenuNode` (`include/menu_node.h`): tree node with `name` and `children`.
+- `App` (`include/app.h`): a `MenuNode` that is also an `InputHandler`, with:
+  - `on_enter()`, `on_exit()`, `tick()`, `draw()`, `on_input()`
+  - `exit()` helper that calls `on_exit()`, sets `wants_exit_`, and pops itself from the input stack.
+- `MenuManager` (`include/menu_manager.h`): singleton `InputHandler` that:
+  - navigates the `MenuNode` tree (UP/DOWN select, LEFT back)
+  - on `CENTER`, enters an `App` by calling `app->on_enter()` and pushing it onto `InputDispatcher`
+  - calls `tick()` on the active app; otherwise draws the menu.
 
-https://gcc.gnu.org/onlinedocs/cpp/Header-Files.html
+### Display + UI helpers
+
+- `Display` (`include/display.h`): primitive drawing wrapper (text/rects/clear).
+- `ui` (`include/ui.h`): shared drawing + interaction helpers:
+  - `draw_status(display, text)` for a one-line header
+  - `draw_list(display, items, selected_index)` for the standard menu/list view
+  - `draw_confirm(display, message)` for blocking confirm prompts
+  - `apply_list_nav(event, selected_index, count)` to share UP/DOWN list navigation
+  - `clamp_index(idx, count)` to keep selection in-bounds when list sizes change
+
+## How to add a new app
+
+1. Create a header in `include/apps/<your_app>.h`:
+   - Derive from `flopper::App`
+   - Implement: `on_enter`, `on_exit`, `tick`, `draw`, `on_input`
+   - Use `exit()` on LEFT/back (or when you want to return to the menu)
+   - For list UIs, prefer:
+     - `ui::apply_list_nav(e, selected_, items_count)` in `on_input`
+     - `ui::draw_status(...)` + `ui::draw_list(...)` in `draw()`
+
+2. Register it in the menu tree (`include/menu_tree.h`):
+   - `#include "apps/<your_app>.h"`
+   - Add an `inline <YourApp> your_app;`
+   - Add it to a menu in `build_menu_tree()` via `some_menu.add_child(&your_app);`
+
+3. Rebuild/flash as usual (see repo root `README.md` for PlatformIO setup).
+
+## Notes / patterns
+
+- `MenuNode` and all `App` instances in `menu_tree.h` are `inline` globals; the tree is rebuilt at boot via `build_menu_tree()`.
+- `MenuManager` should stay on the dispatcher stack under an app; it will resume drawing the menu after an app exits.
+- For dynamic lists whose size can change between frames, always clamp the selected index when drawing.

@@ -1,5 +1,6 @@
 #pragma once
 #include "display.h"
+#include "input_event.h"
 #include <vector>
 
 namespace flopper::ui
@@ -11,14 +12,50 @@ namespace flopper::ui
 
     constexpr int16_t HEADER_MARGIN = 30;
 
-    inline void draw_list(Display &display,
-                          const std::vector<const char *> &items,
-                          size_t selected_index,
-                          size_t window_start = 0)
+    inline size_t clamp_index(size_t idx, size_t count)
     {
-        int16_t y = HEADER_MARGIN;
-        display.fill_rect(MARGIN_X, y, 240, 240, TFT_BLACK);
-        for (size_t i = 0; i < items.size(); i++)
+        if (count == 0)
+            return 0;
+        return idx < count ? idx : (count - 1);
+    }
+
+    inline bool apply_list_nav(InputEvent e, size_t &selected_index, size_t count)
+    {
+        if (e == InputEvent::UP)
+        {
+            if (selected_index > 0)
+            {
+                selected_index--;
+                return true;
+            }
+            return false;
+        }
+        if (e == InputEvent::DOWN)
+        {
+            if (count && selected_index + 1 < count)
+            {
+                selected_index++;
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
+    inline void draw_list_at(Display &display,
+                             const std::vector<const char *> &items,
+                             size_t selected_index,
+                             int16_t y_start,
+                             size_t window_start = 0)
+    {
+        const int16_t h = 240 - y_start;
+        int16_t y = y_start;
+        display.fill_rect(MARGIN_X, y, 240, h, TFT_BLACK);
+
+        const size_t max_visible = h > 0 ? (size_t)(h / LINE_H) : 0;
+        const size_t end = (window_start + max_visible < items.size()) ? (window_start + max_visible) : items.size();
+
+        for (size_t i = window_start; i < end; i++)
         {
             const bool selected = i == selected_index;
             const uint32_t fg = selected ? TFT_BLACK : TFT_WHITE;
@@ -27,6 +64,14 @@ namespace flopper::ui
             display.draw_text(MARGIN_X, y, items[i], fg, 1, bg);
             y += LINE_H;
         }
+    }
+
+    inline void draw_list(Display &display,
+                          const std::vector<const char *> &items,
+                          size_t selected_index,
+                          size_t window_start = 0)
+    {
+        draw_list_at(display, items, selected_index, HEADER_MARGIN, window_start);
     }
     inline void draw_confirm(Display &display, const char *message)
     {

@@ -73,17 +73,7 @@ namespace flopper
             for (auto &s : lines_)
                 items_.push_back(s.c_str());
 
-            const int16_t list_y = 78;
-            int16_t y = list_y;
-            for (size_t i = 0; i < items_.size(); i++)
-            {
-                const bool sel = i == selected_;
-                const uint32_t fg = sel ? TFT_BLACK : TFT_WHITE;
-                const uint32_t bg = sel ? TFT_CYAN : TFT_BLACK;
-                Display::get_instance().fill_rect(flopper::ui::MARGIN_X - 4, y - 2, 240, flopper::ui::LINE_H, bg);
-                Display::get_instance().draw_text(flopper::ui::MARGIN_X, y, items_[i], fg, 1, bg);
-                y += flopper::ui::LINE_H;
-            }
+            flopper::ui::draw_list_at(Display::get_instance(), items_, flopper::ui::clamp_index(selected_, items_.size()), 78);
 
             Display::get_instance().draw_text(flopper::ui::MARGIN_X, 190, "UP/DN=select", TFT_CYAN, 1, TFT_BLACK);
             Display::get_instance().draw_text(flopper::ui::MARGIN_X, 208, "CENTER=toggle  LEFT=back", TFT_CYAN, 1, TFT_BLACK);
@@ -99,18 +89,8 @@ namespace flopper
             if (!ok_)
                 return;
 
-            if (e == InputEvent::UP)
-            {
-                if (selected_ > 0)
-                    selected_--;
+            if (flopper::ui::apply_list_nav(e, selected_, 4))
                 return;
-            }
-            if (e == InputEvent::DOWN)
-            {
-                if (selected_ + 1 < 4)
-                    selected_++;
-                return;
-            }
             if (e == InputEvent::CENTER)
             {
                 const uint8_t pin = selected_pin_bit_();

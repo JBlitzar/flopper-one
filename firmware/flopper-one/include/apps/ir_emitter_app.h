@@ -77,7 +77,7 @@ namespace flopper
             {
                 static const char *devices[] = {"Samsung TV", "Apple TV"};
                 std::vector<const char *> items(devices, devices + 2);
-                flopper::ui::draw_list(Display::get_instance(), items, selected_);
+                flopper::ui::draw_list(Display::get_instance(), items, flopper::ui::clamp_index(selected_, items.size()));
                 return;
             }
 
@@ -90,7 +90,7 @@ namespace flopper
             for (size_t i = 0; i < count; i++)
                 items.push_back(cmds[i].name);
             items.push_back(ir_shared::last_raw_len ? "Replay last raw" : "Replay last raw (none)");
-            flopper::ui::draw_list(Display::get_instance(), items, selected_);
+            flopper::ui::draw_list(Display::get_instance(), items, flopper::ui::clamp_index(selected_, items.size()));
         }
 
         void on_input(InputEvent e) override
@@ -113,18 +113,8 @@ namespace flopper
                                : sizeof(APPLETV_COMMANDS) / sizeof(IRCommand);
             size_t total = device_selected_ ? count + 1 : 2; // +1 for raw replay
 
-            if (e == InputEvent::UP)
-            {
-                if (selected_ > 0)
-                    selected_--;
+            if (flopper::ui::apply_list_nav(e, selected_, total))
                 return;
-            }
-            if (e == InputEvent::DOWN)
-            {
-                if (selected_ + 1 < total)
-                    selected_++;
-                return;
-            }
             if (e != InputEvent::CENTER)
                 return;
 
