@@ -5,6 +5,16 @@
 
 #define ST7789_DRIVER
 
+// Fonts
+// Required for drawString/setTextSize usage.
+#define LOAD_GLCD
+// Optional extra built-in fonts (enable if you want them):
+// #define LOAD_FONT2
+// #define LOAD_FONT4
+// #define LOAD_FONT6
+// #define LOAD_FONT7
+// #define LOAD_FONT8
+
 #define TFT_WIDTH  240
 #define TFT_HEIGHT 240
 

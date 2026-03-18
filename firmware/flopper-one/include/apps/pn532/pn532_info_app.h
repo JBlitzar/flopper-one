@@ -49,18 +49,18 @@ namespace flopper
 
             if (!ok_)
             {
-                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, "No PN532 detected", TFT_WHITE, 1, TFT_BLACK);
-                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, "LEFT=back", TFT_CYAN, 1, TFT_BLACK);
+                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, "No PN532 detected", TFT_WHITE, 2, TFT_BLACK);
+                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, "LEFT=back", TFT_CYAN, 2, TFT_BLACK);
                 return;
             }
 
             char chip[64];
             snprintf(chip, sizeof(chip), "PN5%02lX fw %lu.%lu", (unsigned long)((version_ >> 24) & 0xFF), (unsigned long)((version_ >> 16) & 0xFF), (unsigned long)((version_ >> 8) & 0xFF));
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, chip, TFT_WHITE, 1, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, chip, TFT_WHITE, 2, TFT_BLACK);
 
             char gpio[64];
             snprintf(gpio, sizeof(gpio), "GPIO P3: 0x%02X", (unsigned)p3_);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 58, gpio, TFT_CYAN, 1, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 58, gpio, TFT_CYAN, 2, TFT_BLACK);
 
             lines_.clear();
             items_.clear();
@@ -75,8 +75,8 @@ namespace flopper
 
             flopper::ui::draw_list_at(Display::get_instance(), items_, flopper::ui::clamp_index(selected_, items_.size()), 78);
 
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 190, "UP/DN=select", TFT_CYAN, 1, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 208, "CENTER=toggle  LEFT=back", TFT_CYAN, 1, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 190, "UP/DN=select", TFT_CYAN, 2, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 208, "CENTER=toggle  LEFT=back", TFT_CYAN, 2, TFT_BLACK);
         }
 
         void on_input(InputEvent e) override

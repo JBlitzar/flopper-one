@@ -2,7 +2,11 @@
 
 #include "menu_node.h"
 #include "input_handler.h"
+#if defined(FLOPPER_DESKTOP)
+#include "input_dispatcher_desktop.h"
+#else
 #include "input_dispatcher.h"
+#endif
 
 namespace flopper
 {

@@ -63,10 +63,10 @@ namespace flopper
             Display::get_instance().fill_rect(0, 30, 240, 210, TFT_BLACK);
 
             const char *s = ir_shared::last_summary.length() ? ir_shared::last_summary.c_str() : "(waiting...)";
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, s, TFT_WHITE, 1, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, s, TFT_WHITE, 2, TFT_BLACK);
             char buf[64];
             snprintf(buf, sizeof(buf), "raw=%u", (unsigned)ir_shared::last_raw_len);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, buf, TFT_CYAN, 1, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, buf, TFT_CYAN, 2, TFT_BLACK);
         }
 
         void on_input(InputEvent e) override

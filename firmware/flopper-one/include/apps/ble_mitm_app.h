@@ -76,8 +76,8 @@ namespace flopper
             }
 
             Display::get_instance().fill_rect(0, 30, 240, 210, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, status_.c_str(), TFT_WHITE, 1, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, "LEFT=stop/back", TFT_CYAN, 1, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, status_.c_str(), TFT_WHITE, 2, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, "LEFT=stop/back", TFT_CYAN, 2, TFT_BLACK);
         }
 
         void on_input(InputEvent e) override

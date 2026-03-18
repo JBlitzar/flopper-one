@@ -23,7 +23,7 @@ namespace flopper
             selected_ = 0;
             page_ = 4;
             uri_idx_ = 0;
-            confirm_ = false;
+            confirm_.close();
             confirm_action_ = Action::None;
             last_page_.clear();
             clear_tag_();
@@ -52,14 +52,14 @@ namespace flopper
             {
                 flopper::ui::draw_status(Display::get_instance(), "NTAG/Ultralight (not found)");
                 Display::get_instance().fill_rect(0, 30, 240, 210, TFT_BLACK);
-                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, "No PN532 detected", TFT_WHITE, 1, TFT_BLACK);
-                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, "LEFT=back", TFT_CYAN, 1, TFT_BLACK);
+                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, "No PN532 detected", TFT_WHITE, 2, TFT_BLACK);
+                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, "LEFT=back", TFT_CYAN, 2, TFT_BLACK);
                 return;
             }
 
-            if (confirm_)
+            if (confirm_.active)
             {
-                flopper::ui::draw_confirm(Display::get_instance(), confirm_message_());
+                confirm_.draw(Display::get_instance());
                 return;
             }
 
@@ -92,28 +92,22 @@ namespace flopper
 
         void on_input(InputEvent e) override
         {
-            if (e == InputEvent::LEFT)
-            {
-                if (confirm_)
-                {
-                    confirm_ = false;
-                    confirm_action_ = Action::None;
-                    return;
-                }
-                exit();
-                return;
-            }
             if (!ok_)
                 return;
 
-            if (confirm_)
+            if (confirm_.active)
             {
-                if (e == InputEvent::CENTER)
-                {
+                const auto r = confirm_.on_input(e);
+                if (r == flopper::ui::ConfirmResult::Yes)
                     run_confirmed_();
-                    confirm_ = false;
+                if (r != flopper::ui::ConfirmResult::None)
                     confirm_action_ = Action::None;
-                }
+                return;
+            }
+
+            if (e == InputEvent::LEFT)
+            {
+                exit();
                 return;
             }
 
@@ -146,13 +140,13 @@ namespace flopper
                 if (selected_ == 3)
                 {
                     confirm_action_ = Action::WriteTestPattern;
-                    confirm_ = true;
+                    confirm_.open(confirm_message_());
                     return;
                 }
                 if (selected_ == 4)
                 {
                     confirm_action_ = Action::WriteNdefUri;
-                    confirm_ = true;
+                    confirm_.open(confirm_message_());
                     return;
                 }
             }
@@ -197,7 +191,7 @@ namespace flopper
         std::vector<const char *> items_;
         size_t selected_ = 0;
 
-        bool confirm_ = false;
+        flopper::ui::ConfirmDialog confirm_;
         Action confirm_action_ = Action::None;
 
         void clear_tag_()

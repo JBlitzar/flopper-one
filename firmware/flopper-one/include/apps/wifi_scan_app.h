@@ -255,14 +255,14 @@ namespace flopper
             snprintf(line2, sizeof(line2), "CH: %d  RSSI: %d", e.channel, e.rssi);
             snprintf(line3, sizeof(line3), "SEC: %s", auth_str_(e.auth));
 
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, line1, TFT_WHITE, 1, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 58, line2, TFT_WHITE, 1, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 76, line3, TFT_WHITE, 1, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 100, "LEFT=back", TFT_CYAN, 1, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, line1, TFT_WHITE, 2, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 58, line2, TFT_WHITE, 2, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 76, line3, TFT_WHITE, 2, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 100, "LEFT=back", TFT_CYAN, 2, TFT_BLACK);
             Display::get_instance().draw_text(
                 flopper::ui::MARGIN_X, 120,
                 deauthing_ ? "DEAUTHING..." : "CENTER=deauth",
-                deauthing_ ? TFT_CYAN : TFT_WHITE, 1, TFT_BLACK);
+                deauthing_ ? TFT_CYAN : TFT_WHITE, 2, TFT_BLACK);
         }
 
     private:

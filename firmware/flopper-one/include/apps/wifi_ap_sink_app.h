@@ -39,26 +39,26 @@ namespace flopper
             Display::get_instance().fill_rect(0, 30, 240, 210, TFT_BLACK);
 
             int y = 40;
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, y, ssid_, TFT_WHITE, 1, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, y, ssid_, TFT_WHITE, 2, TFT_BLACK);
             y += 20;
 
             char buf[96];
             snprintf(buf, sizeof(buf), "ch %d  open", kChannel);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, y, buf, TFT_WHITE, 1, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, y, buf, TFT_WHITE, 2, TFT_BLACK);
             y += 20;
 
             const IPAddress ip = WiFi.softAPIP();
             snprintf(buf, sizeof(buf), "ip %u.%u.%u.%u", ip[0], ip[1], ip[2], ip[3]);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, y, buf, TFT_WHITE, 1, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, y, buf, TFT_WHITE, 2, TFT_BLACK);
             y += 20;
 
             snprintf(buf, sizeof(buf), "clients %d", (int)WiFi.softAPgetStationNum());
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, y, buf, TFT_WHITE, 1, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, y, buf, TFT_WHITE, 2, TFT_BLACK);
             y += 30;
 
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, y, "CENTER=start/stop", TFT_CYAN, 1, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, y, "CENTER=start/stop", TFT_CYAN, 2, TFT_BLACK);
             y += 20;
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, y, "LEFT=back", TFT_CYAN, 1, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, y, "LEFT=back", TFT_CYAN, 2, TFT_BLACK);
         }
 
         void on_input(InputEvent e) override

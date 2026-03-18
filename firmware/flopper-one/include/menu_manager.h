@@ -5,7 +5,11 @@
 #include "input_event.h"
 #include <vector>
 #include <string>
+#if defined(FLOPPER_DESKTOP)
+#include "display_desktop.h"
+#else
 #include "display.h"
+#endif
 #include "ui.h"
 
 namespace flopper
@@ -124,7 +128,8 @@ namespace flopper
             }
 
             // draw breadcrumbs at top
-            flopper::ui::draw_status(Display::get_instance(), breadcrumbs.c_str());
+            const std::string hdr = flopper::ui::ellipsize_left(breadcrumbs, flopper::ui::status_max_chars());
+            flopper::ui::draw_status(Display::get_instance(), hdr.c_str());
 
             auto &children = history_.back()->children;
             /*
