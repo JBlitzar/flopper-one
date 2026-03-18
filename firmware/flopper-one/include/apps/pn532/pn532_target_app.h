@@ -50,23 +50,23 @@ namespace flopper
             if (!ok_)
             {
                 flopper::ui::draw_status(Display::get_instance(), "PN532 Target (not found)");
-                Display::get_instance().fill_rect(0, 30, 240, 210, TFT_BLACK);
-                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, "No PN532 detected", TFT_WHITE, 2, TFT_BLACK);
-                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, "LEFT=back", TFT_CYAN, 2, TFT_BLACK);
+                Display::get_instance().fill_rect(0, 30, 240, 210, flopper::ui::BACKGROUND_COLOR);
+                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, "No PN532 detected", flopper::ui::TEXT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, "LEFT=back", flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
                 return;
             }
 
             flopper::ui::draw_status(Display::get_instance(), running_ ? "PN532 Target (running)" : "PN532 Target (stopped)");
-            Display::get_instance().fill_rect(0, 30, 240, 210, TFT_BLACK);
+            Display::get_instance().fill_rect(0, 30, 240, 210, flopper::ui::BACKGROUND_COLOR);
 
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, in_target_ ? "mode: target" : "mode: idle", TFT_CYAN, 2, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, "Last RX:", TFT_WHITE, 2, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 78, last_rx_.size() ? last_rx_.c_str() : "(none)", TFT_CYAN, 2, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 110, "Last TX:", TFT_WHITE, 2, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 128, last_tx_.size() ? last_tx_.c_str() : "(none)", TFT_CYAN, 2, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, in_target_ ? "mode: target" : "mode: idle", flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, "Last RX:", flopper::ui::TEXT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 78, last_rx_.size() ? last_rx_.c_str() : "(none)", flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 110, "Last TX:", flopper::ui::TEXT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 128, last_tx_.size() ? last_tx_.c_str() : "(none)", flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
 
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 170, "CENTER=start/stop", TFT_CYAN, 2, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 188, "LEFT=back", TFT_CYAN, 2, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 170, "CENTER=start/stop", flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 188, "LEFT=back", flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
         }
 
         void on_input(InputEvent e) override

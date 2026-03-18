@@ -45,22 +45,22 @@ namespace flopper
         void draw() override
         {
             flopper::ui::draw_status(Display::get_instance(), ok_ ? "PN532 Info" : "PN532 Info (not found)");
-            Display::get_instance().fill_rect(0, 30, 240, 210, TFT_BLACK);
+            Display::get_instance().fill_rect(0, 30, 240, 210, flopper::ui::BACKGROUND_COLOR);
 
             if (!ok_)
             {
-                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, "No PN532 detected", TFT_WHITE, 2, TFT_BLACK);
-                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, "LEFT=back", TFT_CYAN, 2, TFT_BLACK);
+                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, "No PN532 detected", flopper::ui::TEXT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, "LEFT=back", flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
                 return;
             }
 
             char chip[64];
             snprintf(chip, sizeof(chip), "PN5%02lX fw %lu.%lu", (unsigned long)((version_ >> 24) & 0xFF), (unsigned long)((version_ >> 16) & 0xFF), (unsigned long)((version_ >> 8) & 0xFF));
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, chip, TFT_WHITE, 2, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, chip, flopper::ui::TEXT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
 
             char gpio[64];
             snprintf(gpio, sizeof(gpio), "GPIO P3: 0x%02X", (unsigned)p3_);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 58, gpio, TFT_CYAN, 2, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 58, gpio, flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
 
             lines_.clear();
             items_.clear();
@@ -75,8 +75,8 @@ namespace flopper
 
             flopper::ui::draw_list_at(Display::get_instance(), items_, flopper::ui::clamp_index(selected_, items_.size()), 78);
 
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 190, "UP/DN=select", TFT_CYAN, 2, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 208, "CENTER=toggle  LEFT=back", TFT_CYAN, 2, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 190, "UP/DN=select", flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 208, "CENTER=toggle  LEFT=back", flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
         }
 
         void on_input(InputEvent e) override

@@ -34,9 +34,9 @@ namespace flopper
         void draw() override
         {
             flopper::ui::draw_status(Display::get_instance(), "BLE HID (CTR=type, LEFT=back)");
-            Display::get_instance().fill_rect(0, 30, 240, 210, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, connected_ ? "status: connected" : "status: not connected", connected_ ? TFT_GREEN : TFT_RED, 2, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, "Pairs as a keyboard", TFT_WHITE, 2, TFT_BLACK);
+            Display::get_instance().fill_rect(0, 30, 240, 210, flopper::ui::BACKGROUND_COLOR);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, connected_ ? "status: connected" : "status: not connected", connected_ ? flopper::ui::SUCCESS_COLOR : flopper::ui::FAILURE_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, "Pairs as a keyboard", flopper::ui::TEXT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
         }
 
         void on_input(InputEvent e) override

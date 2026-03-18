@@ -21,9 +21,9 @@ namespace flopper
         void draw() override
         {
             flopper::ui::draw_status(Display::get_instance(), name.c_str());
-            Display::get_instance().fill_rect(0, flopper::ui::HEADER_MARGIN, 240, 240 - flopper::ui::HEADER_MARGIN, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, msg_.c_str(), TFT_WHITE, 2, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 100, "LEFT=back", TFT_CYAN, 2, TFT_BLACK);
+            Display::get_instance().fill_rect(0, flopper::ui::HEADER_MARGIN, 240, 240 - flopper::ui::HEADER_MARGIN, flopper::ui::BACKGROUND_COLOR);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, msg_.c_str(), flopper::ui::TEXT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 100, "LEFT=back", flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
         }
 
         void on_input(InputEvent e) override
@@ -131,9 +131,9 @@ namespace flopper
             }
 
             flopper::ui::draw_status(Display::get_instance(), "Confirm Demo");
-            Display::get_instance().fill_rect(0, flopper::ui::HEADER_MARGIN, 240, 240 - flopper::ui::HEADER_MARGIN, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, status_.c_str(), TFT_WHITE, 2, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 100, "LEFT=back", TFT_CYAN, 2, TFT_BLACK);
+            Display::get_instance().fill_rect(0, flopper::ui::HEADER_MARGIN, 240, 240 - flopper::ui::HEADER_MARGIN, flopper::ui::BACKGROUND_COLOR);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, status_.c_str(), flopper::ui::TEXT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 100, "LEFT=back", flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
         }
 
         void on_input(InputEvent e) override

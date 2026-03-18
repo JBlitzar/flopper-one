@@ -246,7 +246,7 @@ namespace flopper
             char hdr[64];
             snprintf(hdr, sizeof(hdr), "WiFi: %s", e.ssid.size() ? e.ssid.c_str() : "(hidden)");
             flopper::ui::draw_status(Display::get_instance(), hdr);
-            Display::get_instance().fill_rect(0, 30, 240, 210, TFT_BLACK);
+            Display::get_instance().fill_rect(0, 30, 240, 210, flopper::ui::BACKGROUND_COLOR);
 
             char line1[64];
             char line2[64];
@@ -255,14 +255,14 @@ namespace flopper
             snprintf(line2, sizeof(line2), "CH: %d  RSSI: %d", e.channel, e.rssi);
             snprintf(line3, sizeof(line3), "SEC: %s", auth_str_(e.auth));
 
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, line1, TFT_WHITE, 2, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 58, line2, TFT_WHITE, 2, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 76, line3, TFT_WHITE, 2, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 100, "LEFT=back", TFT_CYAN, 2, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, line1, flopper::ui::TEXT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 58, line2, flopper::ui::TEXT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 76, line3, flopper::ui::TEXT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 100, "LEFT=back", flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
             Display::get_instance().draw_text(
                 flopper::ui::MARGIN_X, 120,
                 deauthing_ ? "DEAUTHING..." : "CENTER=deauth",
-                deauthing_ ? TFT_CYAN : TFT_WHITE, 2, TFT_BLACK);
+                deauthing_ ? flopper::ui::ACCENT_COLOR : flopper::ui::TEXT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
         }
 
     private:

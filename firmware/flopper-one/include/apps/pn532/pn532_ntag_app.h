@@ -51,9 +51,9 @@ namespace flopper
             if (!ok_)
             {
                 flopper::ui::draw_status(Display::get_instance(), "NTAG/Ultralight (not found)");
-                Display::get_instance().fill_rect(0, 30, 240, 210, TFT_BLACK);
-                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, "No PN532 detected", TFT_WHITE, 2, TFT_BLACK);
-                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, "LEFT=back", TFT_CYAN, 2, TFT_BLACK);
+                Display::get_instance().fill_rect(0, 30, 240, 210, flopper::ui::BACKGROUND_COLOR);
+                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, "No PN532 detected", flopper::ui::TEXT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, "LEFT=back", flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
                 return;
             }
 

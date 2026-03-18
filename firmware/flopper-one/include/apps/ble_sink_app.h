@@ -73,9 +73,9 @@ namespace flopper
                 return;
             }
 
-            Display::get_instance().fill_rect(0, 30, 240, 210, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, status_.c_str(), TFT_WHITE, 2, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, "LEFT=back", TFT_CYAN, 2, TFT_BLACK);
+            Display::get_instance().fill_rect(0, 30, 240, 210, flopper::ui::BACKGROUND_COLOR);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, status_.c_str(), flopper::ui::TEXT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, "LEFT=back", flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
         }
 
         void on_input(InputEvent e) override

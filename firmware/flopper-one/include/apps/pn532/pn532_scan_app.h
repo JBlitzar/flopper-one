@@ -53,9 +53,9 @@ namespace flopper
             if (!ok_)
             {
                 flopper::ui::draw_status(Display::get_instance(), "PN532 Scan (not found)");
-                Display::get_instance().fill_rect(0, 30, 240, 210, TFT_BLACK);
-                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, "No PN532 detected", TFT_WHITE, 2, TFT_BLACK);
-                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, "LEFT=back", TFT_CYAN, 2, TFT_BLACK);
+                Display::get_instance().fill_rect(0, 30, 240, 210, flopper::ui::BACKGROUND_COLOR);
+                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, "No PN532 detected", flopper::ui::TEXT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, "LEFT=back", flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
                 return;
             }
 
@@ -160,19 +160,19 @@ namespace flopper
         {
             const Pn532SeenTag &t = tags_[selected_ < tags_.size() ? selected_ : 0];
             flopper::ui::draw_status(Display::get_instance(), "PN532 Tag Details");
-            Display::get_instance().fill_rect(0, 30, 240, 210, TFT_BLACK);
+            Display::get_instance().fill_rect(0, 30, 240, 210, flopper::ui::BACKGROUND_COLOR);
 
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, t.uid.c_str(), TFT_WHITE, 1, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, t.uid.c_str(), flopper::ui::TEXT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
             char buf[64];
             snprintf(buf, sizeof(buf), "uid_len=%u", (unsigned)t.uid_len);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, buf, TFT_CYAN, 2, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 78, pn532::guess_tag_type(t.uid_len), TFT_CYAN, 2, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, buf, flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 78, pn532::guess_tag_type(t.uid_len), flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
 
             snprintf(buf, sizeof(buf), "seen %lus ago", (unsigned long)((millis() - t.last_seen_ms) / 1000));
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 100, buf, TFT_CYAN, 2, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 100, buf, flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
 
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 140, "CENTER=clear", TFT_CYAN, 2, TFT_BLACK);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 158, "LEFT=back", TFT_CYAN, 2, TFT_BLACK);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 140, "CENTER=clear", flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 158, "LEFT=back", flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
         }
     };
 }

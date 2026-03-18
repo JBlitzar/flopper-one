@@ -11,6 +11,17 @@
 namespace flopper::ui
 {
 
+    // Semantic colors (avoid sprinkling raw TFT_* constants through apps).
+    inline constexpr uint32_t BACKGROUND_COLOR = TFT_BLACK;
+    inline constexpr uint32_t TEXT_COLOR = TFT_WHITE;
+    inline constexpr uint32_t ACCENT_COLOR = TFT_CYAN;
+    inline constexpr uint32_t SELECTION_COLOR = TFT_CYAN;
+    inline constexpr uint32_t CONFIRM_COLOR = TFT_GREEN;
+    inline constexpr uint32_t CANCEL_COLOR = TFT_RED;
+    inline constexpr uint32_t SUCCESS_COLOR = TFT_GREEN;
+    inline constexpr uint32_t FAILURE_COLOR = TFT_RED;
+    inline constexpr uint32_t DIVIDER_COLOR = TFT_DARKGREY;
+
     constexpr int16_t MARGIN_X = 10;
     constexpr int16_t MARGIN_Y = 10;
     constexpr int16_t HEADER_MARGIN = 30;
@@ -139,7 +150,7 @@ namespace flopper::ui
         const int16_t y0 = y_start + LIST_TOP_GAP;
         const int16_t h = 240 - y0;
         int16_t y = y0;
-        display.fill_rect(0, y, 240, h, TFT_BLACK);
+        display.fill_rect(0, y, 240, h, BACKGROUND_COLOR);
 
         const size_t max_visible = h > 0 ? (size_t)(h / LINE_H) : 0;
         if (max_visible == 0)
@@ -168,8 +179,8 @@ namespace flopper::ui
         for (size_t i = start; i < end; i++)
         {
             const bool selected = i == selected_index;
-            const uint32_t fg = selected ? TFT_BLACK : TFT_WHITE;
-            const uint32_t bg = selected ? TFT_CYAN : TFT_BLACK;
+            const uint32_t fg = selected ? BACKGROUND_COLOR : TEXT_COLOR;
+            const uint32_t bg = selected ? SELECTION_COLOR : BACKGROUND_COLOR;
             display.fill_rect(0, y, 240, LINE_H, bg);
             display.draw_text(MARGIN_X, y + ROW_PAD_Y, items[i], fg, LIST_TEXT_SIZE, bg);
             y += LINE_H;
@@ -185,17 +196,17 @@ namespace flopper::ui
     }
     inline void draw_confirm(Display &display, const char *message)
     {
-        display.clear(TFT_BLACK);
-        display.draw_text(MARGIN_X, MARGIN_Y, message, TFT_WHITE, CONFIRM_TEXT_SIZE);
-        display.draw_text(MARGIN_X, MARGIN_Y + 28, "CENTER = yes", TFT_GREEN, CONFIRM_TEXT_SIZE);
-        display.draw_text(MARGIN_X, MARGIN_Y + 52, "LEFT   = no", TFT_RED, CONFIRM_TEXT_SIZE);
+        display.clear(BACKGROUND_COLOR);
+        display.draw_text(MARGIN_X, MARGIN_Y, message, TEXT_COLOR, CONFIRM_TEXT_SIZE);
+        display.draw_text(MARGIN_X, MARGIN_Y + 28, "CENTER = yes", CONFIRM_COLOR, CONFIRM_TEXT_SIZE);
+        display.draw_text(MARGIN_X, MARGIN_Y + 52, "LEFT   = no", CANCEL_COLOR, CONFIRM_TEXT_SIZE);
     }
     inline void draw_status(Display &display, const char *text)
     {
-        display.fill_rect(0, 0, 240, HEADER_MARGIN, TFT_BLACK);
-        display.draw_text(MARGIN_X, MARGIN_Y, text, TFT_WHITE, STATUS_TEXT_SIZE, TFT_BLACK);
+        display.fill_rect(0, 0, 240, HEADER_MARGIN, BACKGROUND_COLOR);
+        display.draw_text(MARGIN_X, MARGIN_Y, text, TEXT_COLOR, STATUS_TEXT_SIZE, BACKGROUND_COLOR);
         // Divider line between header and list.
-        display.fill_rect(0, HEADER_MARGIN - 1, 240, 1, TFT_DARKGREY);
+        display.fill_rect(0, HEADER_MARGIN - 1, 240, 1, DIVIDER_COLOR);
     }
 
 }
