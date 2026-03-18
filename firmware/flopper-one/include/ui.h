@@ -8,9 +8,12 @@ namespace flopper::ui
 
     constexpr int16_t MARGIN_X = 10;
     constexpr int16_t MARGIN_Y = 10;
-    constexpr int16_t LINE_H = 18;
-
     constexpr int16_t HEADER_MARGIN = 30;
+
+    constexpr size_t LIST_VISIBLE_ROWS = 4;
+    constexpr int LIST_TEXT_SIZE = 2;
+
+    constexpr int16_t LINE_H = (240 - HEADER_MARGIN) / (int16_t)LIST_VISIBLE_ROWS;
 
     inline size_t clamp_index(size_t idx, size_t count)
     {
@@ -61,7 +64,7 @@ namespace flopper::ui
             const uint32_t fg = selected ? TFT_BLACK : TFT_WHITE;
             const uint32_t bg = selected ? TFT_CYAN : TFT_BLACK;
             display.fill_rect(MARGIN_X - 4, y - 2, 240, LINE_H, bg);
-            display.draw_text(MARGIN_X, y, items[i], fg, 1, bg);
+            display.draw_text(MARGIN_X, y, items[i], fg, LIST_TEXT_SIZE, bg);
             y += LINE_H;
         }
     }
