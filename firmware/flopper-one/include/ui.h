@@ -21,6 +21,8 @@ namespace flopper::ui
     inline constexpr uint32_t SUCCESS_COLOR = TFT_GREEN;
     inline constexpr uint32_t FAILURE_COLOR = TFT_RED;
     inline constexpr uint32_t DIVIDER_COLOR = TFT_DARKGREY;
+    inline constexpr uint32_t MUTED_TEXT_COLOR = TFT_LIGHTGREY;
+    inline constexpr uint32_t BREADCRUMB_COLOR = MUTED_TEXT_COLOR;
 
     constexpr int16_t MARGIN_X = 10;
     constexpr int16_t MARGIN_Y = 10;
@@ -42,7 +44,7 @@ namespace flopper::ui
         const size_t char_w = 6u * (size_t)STATUS_TEXT_SIZE;
         if (char_w == 0)
             return 0;
-        const size_t max_chars = (240u / char_w);
+        const size_t max_chars = (240u / char_w) - 1;
         return max_chars > 0 ? max_chars : 0;
     }
 
@@ -145,7 +147,8 @@ namespace flopper::ui
                              const std::vector<const char *> &items,
                              size_t selected_index,
                              int16_t y_start,
-                             size_t window_start = 0)
+                             size_t window_start = 0,
+                             const std::vector<bool> *has_children = nullptr)
     {
         const int16_t y0 = y_start + LIST_TOP_GAP;
         const int16_t h = 240 - y0;
@@ -183,6 +186,12 @@ namespace flopper::ui
             const uint32_t bg = selected ? SELECTION_COLOR : BACKGROUND_COLOR;
             display.fill_rect(0, y, 240, LINE_H, bg);
             display.draw_text(MARGIN_X, y + ROW_PAD_Y, items[i], fg, LIST_TEXT_SIZE, bg);
+
+            if (selected && has_children && has_children->size() == items.size() && (*has_children)[i])
+            {
+                const int16_t arrow_x = 240 - MARGIN_X - (int16_t)(6 * LIST_TEXT_SIZE);
+                display.draw_text(arrow_x, y + ROW_PAD_Y, ">", fg, LIST_TEXT_SIZE, bg);
+            }
             y += LINE_H;
         }
     }
@@ -201,12 +210,17 @@ namespace flopper::ui
         display.draw_text(MARGIN_X, MARGIN_Y + 28, "CENTER = yes", CONFIRM_COLOR, CONFIRM_TEXT_SIZE);
         display.draw_text(MARGIN_X, MARGIN_Y + 52, "LEFT   = no", CANCEL_COLOR, CONFIRM_TEXT_SIZE);
     }
-    inline void draw_status(Display &display, const char *text)
+    inline void draw_status(Display &display, const char *text, uint32_t color)
     {
         display.fill_rect(0, 0, 240, HEADER_MARGIN, BACKGROUND_COLOR);
-        display.draw_text(MARGIN_X, MARGIN_Y, text, TEXT_COLOR, STATUS_TEXT_SIZE, BACKGROUND_COLOR);
+        display.draw_text(MARGIN_X, MARGIN_Y, text, color, STATUS_TEXT_SIZE, BACKGROUND_COLOR);
         // Divider line between header and list.
         display.fill_rect(0, HEADER_MARGIN - 1, 240, 1, DIVIDER_COLOR);
+    }
+
+    inline void draw_status(Display &display, const char *text)
+    {
+        draw_status(display, text, TEXT_COLOR);
     }
 
 }

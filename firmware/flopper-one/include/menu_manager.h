@@ -104,6 +104,7 @@ namespace flopper
         MenuManager() = default;
         std::string breadcrumbs = "";
         std::vector<const char *> names;
+        std::vector<bool> has_children_;
 
         // copied + edited from google AI overview lol
 
@@ -129,7 +130,7 @@ namespace flopper
 
             // draw breadcrumbs at top
             const std::string hdr = flopper::ui::ellipsize_left(breadcrumbs, flopper::ui::status_max_chars());
-            flopper::ui::draw_status(Display::get_instance(), hdr.c_str());
+            flopper::ui::draw_status(Display::get_instance(), hdr.c_str(), flopper::ui::BREADCRUMB_COLOR);
 
             auto &children = history_.back()->children;
             /*
@@ -147,9 +148,15 @@ namespace flopper
             }*/
             
             names.clear();
+            has_children_.clear();
             for (auto &child : children)
+            {
                 names.push_back(child->name.c_str());
-            flopper::ui::draw_list(Display::get_instance(), names, flopper::ui::clamp_index(selected_index_, names.size()));
+                has_children_.push_back(!child->children.empty());
+            }
+            flopper::ui::draw_list_at(Display::get_instance(), names,
+                                      flopper::ui::clamp_index(selected_index_, names.size()),
+                                      flopper::ui::HEADER_MARGIN, 0, &has_children_);
         }
     };
 }
