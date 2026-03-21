@@ -16,6 +16,8 @@ This aligns with Blueprint's AI policy. From the FAQ canvas:
 
 (emphasis mine)
 
+And yes, the implementation of the desktop bridge (desktop/) for UI iteration was fully coded by AI. It's glue code, not business logic, and I don't want to learn macOS apis for a silly internal feature.
+
 ## Roadmap
 
 - Make sure everything works!
