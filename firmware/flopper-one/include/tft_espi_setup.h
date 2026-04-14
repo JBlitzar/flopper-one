@@ -19,14 +19,14 @@
 #define TFT_HEIGHT 240
 
 // ESP32 SPI wiring
-#define TFT_SCLK 19
-#define TFT_MOSI 18
+#define TFT_SCLK 18
+#define TFT_MOSI 19
 #define TFT_MISO -1
 
 // Control pins
-#define TFT_DC  32
+#define TFT_DC  22
 #define TFT_CS  -1
-#define TFT_RST 33
+#define TFT_RST 21
 
 #define TFT_INVERSION_ON
 
