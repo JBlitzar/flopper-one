@@ -1,4 +1,5 @@
 #pragma once
+#include <Arduino.h>
 #include "menu_node.h"
 #include "app.h"
 #include "input_handler.h"
@@ -32,6 +33,7 @@ namespace flopper
 
             this->history_.push_back(root);
             selected_index_ = 0;
+            menu_dirty_ = true;
             return this;
         }
 
@@ -42,6 +44,7 @@ namespace flopper
 
             if (flopper::ui::apply_list_nav(evt, selected_index_, children.size()))
             {
+                menu_dirty_ = true;
                 return;
             }
 
@@ -51,6 +54,7 @@ namespace flopper
                 {
                     history_.pop_back();
                     selected_index_ = 0;
+                    menu_dirty_ = true;
                 }
             }
             else if (evt == InputEvent::RIGHT)
@@ -73,6 +77,7 @@ namespace flopper
                     { // make sure subdir has children
                         history_.push_back(selected);
                         selected_index_ = 0;
+                        menu_dirty_ = true;
                     }
                 }
             }
@@ -83,8 +88,7 @@ namespace flopper
             if (active_app_ && active_app_->wants_exit_)
             {
                 active_app_ = nullptr;
-
-                draw_menu_();
+                menu_dirty_ = true;
             }
             else if (active_app_)
             {
@@ -92,7 +96,7 @@ namespace flopper
             }
             else
             {
-                draw_menu_();
+                maybe_draw_menu_();
             }
         }
 
@@ -106,6 +110,10 @@ namespace flopper
         std::vector<const char *> names;
         std::vector<bool> has_children_;
 
+        bool menu_dirty_ = true;
+        uint32_t last_menu_draw_ms_ = 0;
+        static constexpr uint32_t kMinMenuDrawIntervalMs = 33; // ~30 FPS max
+
         // copied + edited from google AI overview lol
 
         MenuManager(const MenuManager &) = delete;
@@ -113,6 +121,20 @@ namespace flopper
 
         MenuManager(MenuManager &&) = delete;
         MenuManager &operator=(MenuManager &&) = delete;
+
+        void maybe_draw_menu_()
+        {
+            if (!menu_dirty_)
+                return;
+
+            const uint32_t now = millis();
+            if ((uint32_t)(now - last_menu_draw_ms_) < kMinMenuDrawIntervalMs)
+                return;
+
+            draw_menu_();
+            last_menu_draw_ms_ = now;
+            menu_dirty_ = false;
+        }
 
         void draw_menu_()
         {
@@ -146,7 +168,7 @@ namespace flopper
                     // draw normal
                 }
             }*/
-            
+
             names.clear();
             has_children_.clear();
             for (auto &child : children)
