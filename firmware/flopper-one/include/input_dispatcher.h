@@ -13,11 +13,11 @@ namespace flopper
     {
         uint8_t pin;
         InputEvent event;
-        bool was_pressed = false;
-        uint32_t last_fired = 0;
+        bool stable_pressed = false;
+        bool last_raw_pressed = false;
+        uint32_t last_change_ms = 0;
 
-        Button(uint8_t p, InputEvent e, bool wp) : pin(p), event(e), was_pressed(wp), last_fired(0) {}
-        Button(uint8_t p, InputEvent e) : pin(p), event(e), was_pressed(false), last_fired(0) {}
+        Button(uint8_t p, InputEvent e) : pin(p), event(e) {}
     };
 
     inline Button buttons_[5] = {
@@ -51,28 +51,48 @@ namespace flopper
 
         void poll()
         {
-            // poll GPIO
-            // debounce
-            // dispatch!
             uint32_t now = millis();
+            if (handlers.empty())
+                return;
+
             for (auto &btn : buttons_)
             {
-                bool pressed = digitalRead(btn.pin) == LOW;
-                if (pressed && !btn.was_pressed && (now - btn.last_fired > 50)) // rising edge, 50 ms debounce
+                const bool raw_pressed = (digitalRead(btn.pin) == LOW);
+
+                if (raw_pressed != btn.last_raw_pressed)
                 {
-                    dispatch_(btn.event);
-                    btn.last_fired = now;
+                    btn.last_raw_pressed = raw_pressed;
+                    btn.last_change_ms = now;
                 }
-                btn.was_pressed = pressed;
+
+                // Only accept a state transition once the raw level has been stable
+                // for a minimum amount of time.
+                if ((uint32_t)(now - btn.last_change_ms) < kDebounceMs)
+                    continue;
+
+                if (raw_pressed == btn.stable_pressed)
+                    continue;
+
+                btn.stable_pressed = raw_pressed;
+                if (btn.stable_pressed)
+                    dispatch_(btn.event); // fire only on press
             }
         }
 
     private:
+        static constexpr uint32_t kDebounceMs = 30;
+
         InputDispatcher()
         {
             // init...
             for (auto &btn : buttons_)
+            {
                 pinMode(btn.pin, INPUT_PULLUP);
+                const bool raw_pressed = (digitalRead(btn.pin) == LOW);
+                btn.last_raw_pressed = raw_pressed;
+                btn.stable_pressed = raw_pressed;
+                btn.last_change_ms = millis();
+            }
         };
         std::stack<InputHandler *> handlers;
 

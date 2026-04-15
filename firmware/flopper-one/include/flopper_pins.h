@@ -14,7 +14,7 @@ namespace flopper::pins
     static constexpr uint8_t DPAD_CENTER = 25;
 
     static constexpr uint8_t PN532_SDA = 17; // pn532 nfc/rfid thing
-    static constexpr uint8_t PN532_SCL = 15;
+    static constexpr uint8_t PN532_SCL = 5;
 
     // Display (ST7789) is SPI, not I2C.
     static constexpr uint8_t DISP_SCL = 19; // SPI SCLK (as wired)
