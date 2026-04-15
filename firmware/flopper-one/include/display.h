@@ -67,7 +67,7 @@ namespace flopper
             hspi_.begin(flopper::pins::DISP_SCLK, -1, flopper::pins::DISP_MOSI, -1);
 
             tft_.init(kWidth, kHeight, SPI_MODE3);
-            tft_.setRotation(3);
+            tft_.setRotation(1);
             tft_.setSPISpeed(kSpiHz);
             tft_.setTextWrap(false);
             tft_.fillScreen(flopper::colors::BLACK);
