@@ -8,9 +8,29 @@
 #include <thread>
 #include <random>
 
-// Basic Arduino-compatible types/macros used by TFT_eSPI.
+// Basic Arduino-compatible types/macros used by the desktop UI shim.
 using byte = uint8_t;
 using boolean = bool;
+
+// Flash string helpers (no-op on desktop).
+class __FlashStringHelper;
+#ifndef F
+#define F(x) (x)
+#endif
+
+// Math helpers expected by some Arduino libraries.
+#ifndef PI
+#define PI 3.1415926535897932384626433832795
+#endif
+#ifndef DEG_TO_RAD
+#define DEG_TO_RAD (PI / 180.0)
+#endif
+#ifndef RAD_TO_DEG
+#define RAD_TO_DEG (180.0 / PI)
+#endif
+
+inline float radians(float deg) { return deg * (float)DEG_TO_RAD; }
+inline float degrees(float rad) { return rad * (float)RAD_TO_DEG; }
 
 #ifndef PROGMEM
 #define PROGMEM
@@ -84,7 +104,7 @@ inline uint32_t digitalPinToBitMask(int pin)
     return (1u << (uint32_t)pin);
 }
 
-// Minimal Arduino String used by TFT_eSPI String overloads.
+// Minimal Arduino String used by library String overloads.
 class String
 {
 public:
@@ -124,7 +144,7 @@ private:
     std::string s_;
 };
 
-// Arduino helpers expected by TFT_eSPI.
+// Arduino helpers expected by common Arduino libraries.
 #ifndef min
 #define min(a, b) ((a) < (b) ? (a) : (b))
 #endif

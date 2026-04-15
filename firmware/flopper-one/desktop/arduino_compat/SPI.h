@@ -3,6 +3,26 @@
 #include <cstdint>
 #include <cstddef>
 
+// Arduino SPI constants/types expected by Adafruit_BusIO.
+enum BitOrder : uint8_t
+{
+    LSBFIRST = 0,
+    MSBFIRST = 1,
+};
+
+#ifndef SPI_MODE0
+#define SPI_MODE0 0x00
+#endif
+#ifndef SPI_MODE1
+#define SPI_MODE1 0x01
+#endif
+#ifndef SPI_MODE2
+#define SPI_MODE2 0x02
+#endif
+#ifndef SPI_MODE3
+#define SPI_MODE3 0x03
+#endif
+
 class SPISettings
 {
 public:

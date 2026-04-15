@@ -20,6 +20,8 @@ namespace flopper::pins
     static constexpr uint8_t DISP_SCL = 19; // SPI SCLK (as wired)
     static constexpr uint8_t DISP_SDA = 18; // SPI MOSI (as wired)
     static constexpr uint8_t DISP_DC = 32;  // SPI D/C (as wired)
+    static constexpr int8_t DISP_CS = -1;   // no CS (tied active)
+    static constexpr uint8_t DISP_RST = 33; // reset (as wired)
 
     // Preferred names
     static constexpr uint8_t DISP_SCLK = DISP_SCL;

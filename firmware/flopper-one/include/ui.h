@@ -5,6 +5,7 @@
 #include "display.h"
 #endif
 #include "input_event.h"
+#include "colors.h"
 #include <string>
 #include <vector>
 
@@ -12,16 +13,16 @@ namespace flopper::ui
 {
 
     // Semantic colors (avoid sprinkling raw TFT_* constants through apps).
-    inline constexpr uint32_t BACKGROUND_COLOR = TFT_BLACK;
-    inline constexpr uint32_t TEXT_COLOR = TFT_WHITE;
-    inline constexpr uint32_t ACCENT_COLOR = TFT_CYAN;
-    inline constexpr uint32_t SELECTION_COLOR = TFT_CYAN;
-    inline constexpr uint32_t CONFIRM_COLOR = TFT_GREEN;
-    inline constexpr uint32_t CANCEL_COLOR = TFT_RED;
-    inline constexpr uint32_t SUCCESS_COLOR = TFT_GREEN;
-    inline constexpr uint32_t FAILURE_COLOR = TFT_RED;
-    inline constexpr uint32_t DIVIDER_COLOR = TFT_DARKGREY;
-    inline constexpr uint32_t MUTED_TEXT_COLOR = TFT_LIGHTGREY;
+    inline constexpr uint32_t BACKGROUND_COLOR = flopper::colors::BLACK;
+    inline constexpr uint32_t TEXT_COLOR = flopper::colors::WHITE;
+    inline constexpr uint32_t ACCENT_COLOR = flopper::colors::CYAN;
+    inline constexpr uint32_t SELECTION_COLOR = flopper::colors::CYAN;
+    inline constexpr uint32_t CONFIRM_COLOR = flopper::colors::GREEN;
+    inline constexpr uint32_t CANCEL_COLOR = flopper::colors::RED;
+    inline constexpr uint32_t SUCCESS_COLOR = flopper::colors::GREEN;
+    inline constexpr uint32_t FAILURE_COLOR = flopper::colors::RED;
+    inline constexpr uint32_t DIVIDER_COLOR = flopper::colors::DARKGREY;
+    inline constexpr uint32_t MUTED_TEXT_COLOR = flopper::colors::LIGHTGREY;
     inline constexpr uint32_t BREADCRUMB_COLOR = MUTED_TEXT_COLOR;
 
     constexpr int16_t MARGIN_X = 10;

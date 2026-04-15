@@ -5,12 +5,12 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BUILD_DIR="$ROOT/desktop/build"
 BIN="$BUILD_DIR/flopper_desktop"
 
-TFT_LIB="$ROOT/.pio/libdeps/esp32dev/TFT_eSPI"
+GFX_LIB="$ROOT/.pio/libdeps/esp32dev/Adafruit GFX Library"
+BUSIO_LIB="$ROOT/.pio/libdeps/esp32dev/Adafruit BusIO"
 
 mkdir -p "$BUILD_DIR"
-
-if [[ ! -d "$TFT_LIB" ]]; then
-  echo "TFT_eSPI not found under .pio; running PlatformIO build once to fetch deps..."
+if [[ ! -d "$GFX_LIB" || ! -d "$BUSIO_LIB" ]]; then
+  echo "Adafruit_GFX not found under .pio; running PlatformIO build once to fetch deps..."
   pio run -e esp32dev >/dev/null
 fi
 
@@ -18,15 +18,16 @@ clang++ \
   -std=c++17 \
   -O2 \
   -DFLOPPER_DESKTOP=1 \
-  -DUSER_SETUP_LOADED=1 \
-  -include "$ROOT/include/tft_espi_setup.h" \
+  -DARDUINO=100 \
   -I"$ROOT/desktop/arduino_compat" \
   -I"$ROOT/include" \
   -I"$ROOT/desktop" \
-  -I"$TFT_LIB" \
+  -I"$GFX_LIB" \
+  -I"$BUSIO_LIB" \
   "$ROOT/desktop/main.cpp" \
   "$ROOT/desktop/cocoa_bridge.mm" \
-  "$TFT_LIB/TFT_eSPI.cpp" \
+  "$GFX_LIB/Adafruit_GFX.cpp" \
+  "$GFX_LIB/glcdfont.c" \
   -framework Cocoa \
   -o "$BIN"
 

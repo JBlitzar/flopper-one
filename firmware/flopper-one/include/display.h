@@ -1,7 +1,8 @@
 #pragma once
-#include <tft_espi_setup.h>
 #include "flopper_pins.h"
-#include <TFT_eSPI.h>
+#include "colors.h"
+#include <Adafruit_GFX.h>
+#include <Adafruit_ST7789.h>
 #include <SPI.h>
 #include <string>
 
@@ -19,47 +20,57 @@ namespace flopper
 
         void clear(uint32_t color)
         {
-            tft.fillScreen(color);
+            tft_.fillScreen((uint16_t)color);
         }
 
         void draw_text(int x, int y, const char *str, uint32_t color, int size)
         {
-            tft.setTextColor(color, TFT_BLACK);
-            tft.setTextSize(size);
-            tft.drawString(str, x, y);
+            tft_.setCursor(x, y);
+            tft_.setTextSize(size);
+            tft_.setTextColor((uint16_t)color, flopper::colors::BLACK);
+            tft_.print(str ? str : "");
         }
 
         void draw_text(int x, int y, const char *str, uint32_t color, int size, uint32_t highlight)
         {
-            tft.setTextColor(color, highlight, true);
-            tft.setTextSize(size);
-            tft.drawString(str, x, y);
+            tft_.setCursor(x, y);
+            tft_.setTextSize(size);
+            tft_.setTextColor((uint16_t)color, (uint16_t)highlight);
+            tft_.print(str ? str : "");
         }
 
         void draw_rect(int x, int y, int w, int h, uint32_t color, int r = 0)
         {
             if (r > 0)
-                tft.drawRoundRect(x, y, w, h, r, color);
+                tft_.drawRoundRect(x, y, w, h, r, (uint16_t)color);
             else
-                tft.drawRect(x, y, w, h, color);
+                tft_.drawRect(x, y, w, h, (uint16_t)color);
         }
         void fill_rect(int x, int y, int w, int h, uint32_t color, int r = 0)
         {
             if (r > 0)
-                tft.fillRoundRect(x, y, w, h, r, color);
+                tft_.fillRoundRect(x, y, w, h, r, (uint16_t)color);
             else
-                tft.fillRect(x, y, w, h, color);
+                tft_.fillRect(x, y, w, h, (uint16_t)color);
         }
 
     private:
-        TFT_eSPI tft;
+        static constexpr int16_t kWidth = 240;
+        static constexpr int16_t kHeight = 240;
+        static constexpr uint32_t kSpiHz = 40000000;
+
+        SPIClass hspi_{HSPI};
+        Adafruit_ST7789 tft_{&hspi_, flopper::pins::DISP_CS, flopper::pins::DISP_DC, flopper::pins::DISP_RST};
+
         Display()
         {
+            hspi_.begin(flopper::pins::DISP_SCLK, -1, flopper::pins::DISP_MOSI, -1);
 
-            tft = TFT_eSPI();
-            tft.init();
-            tft.setRotation(0);
-            tft.fillScreen(TFT_BLACK);
+            tft_.init(kWidth, kHeight, SPI_MODE3);
+            tft_.setRotation(3);
+            tft_.setSPISpeed(kSpiHz);
+            tft_.setTextWrap(false);
+            tft_.fillScreen(flopper::colors::BLACK);
         };
 
         // copied + edited from google AI overview lol
