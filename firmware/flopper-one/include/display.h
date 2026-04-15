@@ -55,9 +55,9 @@ namespace flopper
         TFT_eSPI tft;
         Display()
         {
+
             tft = TFT_eSPI();
             tft.init();
-            delay(120);
             tft.setRotation(0);
             tft.fillScreen(TFT_BLACK);
         };

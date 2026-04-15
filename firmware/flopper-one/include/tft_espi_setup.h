@@ -28,6 +28,4 @@
 #define TFT_CS  -1
 #define TFT_RST 33
 
-#define TFT_INVERSION_ON
-
-#define SPI_FREQUENCY 4000000
+#define SPI_FREQUENCY 40000000
