@@ -25,7 +25,8 @@ namespace flopper
 
         void on_enter() override
         {
-            ok_ = pn532::ensure_init();
+            ok_ = false;
+            first_frame_ = true;
             selected_ = 0;
             show_detail_ = false;
             tags_.clear();
@@ -40,7 +41,21 @@ namespace flopper
 
         void tick() override
         {
-            if (ok_ && millis() - last_poll_ms_ > 120)
+            if (first_frame_)
+            {
+                first_frame_ = false;
+                draw();
+                return;
+            }
+
+            if (!ok_)
+            {
+                ok_ = (pn532::tick_init() == pn532::InitState::Ready);
+                draw();
+                return;
+            }
+
+            if (millis() - last_poll_ms_ > 120)
             {
                 poll_();
                 last_poll_ms_ = millis();
@@ -52,9 +67,15 @@ namespace flopper
         {
             if (!ok_)
             {
-                flopper::ui::draw_status(Display::get_instance(), "PN532 Scan (not found)");
+                char title[64];
+                snprintf(title, sizeof(title), "PN532 Scan (%s)", pn532::init_state_label(pn532::init_state));
+                flopper::ui::draw_status(Display::get_instance(), title);
                 Display::get_instance().fill_rect(0, 30, 240, 210, flopper::ui::BACKGROUND_COLOR);
-                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, "No PN532 detected", flopper::ui::TEXT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40,
+                                                  pn532::init_state == pn532::InitState::InProgress || pn532::init_state == pn532::InitState::NotStarted
+                                                      ? "Initializing..."
+                                                      : "No PN532 detected",
+                                                  flopper::ui::TEXT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
                 Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, "LEFT=back", flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
                 return;
             }
@@ -117,6 +138,7 @@ namespace flopper
 
     private:
         bool ok_ = false;
+        bool first_frame_ = true;
         uint32_t last_poll_ms_ = 0;
         std::vector<Pn532SeenTag> tags_;
         std::vector<std::string> lines_;

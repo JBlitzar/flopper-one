@@ -71,6 +71,14 @@ namespace flopper::ui
 
     inline bool apply_list_nav(InputEvent e, size_t &selected_index, size_t count)
     {
+        if (count == 0)
+        {
+            selected_index = 0;
+            return false;
+        }
+
+        selected_index = clamp_index(selected_index, count);
+
         if (e == InputEvent::UP)
         {
             if (selected_index > 0)

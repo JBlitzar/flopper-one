@@ -6,12 +6,18 @@ namespace flopper::ble
 {
     inline void ensure_init(const char *device_name = "flopper-one")
     {
-        static bool inited = false;
-        if (inited)
+        if (NimBLEDevice::isInitialized())
             return;
-        inited = true;
 
         NimBLEDevice::init(device_name);
         NimBLEDevice::setPower(ESP_PWR_LVL_P9);
+    }
+
+    inline bool set_static_random_addr(const char *addr)
+    {
+        if (!NimBLEDevice::setOwnAddrType(BLE_OWN_ADDR_RANDOM))
+            return false;
+
+        return NimBLEDevice::setOwnAddr(NimBLEAddress(addr, BLE_ADDR_RANDOM));
     }
 }

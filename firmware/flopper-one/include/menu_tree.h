@@ -3,6 +3,7 @@
 #include "apps/hello_world_app_two.h"
 #include "apps/ir_sniffer_app.h"
 #include "apps/ir_emitter_app.h"
+#include "apps/ir_led_test_app.h"
 #include "apps/wifi_scan_app.h"
 #include "apps/wifi_ap_sink_app.h"
 #include "apps/ble_scan_app.h"
@@ -23,6 +24,7 @@ namespace flopper
 {
     inline IrSnifferApp ir_sniff;
     inline IrEmitterApp ir_emit;
+    inline IrLedTestApp ir_led_test;
 
     inline WifiScanApp wifi_scan;
     inline WifiApSinkApp wifi_ap_sink;
@@ -60,6 +62,7 @@ namespace flopper
 
         ir_menu.add_child(&ir_sniff);
         ir_menu.add_child(&ir_emit);
+        ir_menu.add_child(&ir_led_test);
 
         wifi_menu.add_child(&wifi_scan);
         wifi_menu.add_child(&wifi_ap_sink);

@@ -17,65 +17,51 @@ namespace flopper
 
         void on_enter() override
         {
-            flopper::ble::ensure_init("flopper-one");
-            entries_.clear();
-            lines_.clear();
-            selected_ = 0;
-            status_ = "";
-            state_ = State::Scanning;
-            start_scan_();
+            flopper::ble::ensure_init("flopper-sink");
+            NimBLEDevice::setDeviceName("Flopper Sink");
+            flopper::ble::set_static_random_addr("D3:16:12:34:56:70");
+
+            active_ = true;
+            if (!started_)
+                start_();
+
+            start_advertising_();
             log::line("BLE", "sink enter");
         }
 
         void on_exit() override
         {
-            stop_all_();
+            active_ = false;
+            stop_advertising_();
+
+            if (server_ && connected_ && conn_handle_ != kInvalidConnHandle)
+                server_->disconnect(conn_handle_);
+
+            if (NimBLEDevice::isInitialized())
+                NimBLEDevice::deinit(true);
+
+            started_ = false;
+            server_ = nullptr;
+            service_ = nullptr;
+            characteristic_ = nullptr;
+            advertising_ = nullptr;
+            connected_ = false;
+            conn_handle_ = kInvalidConnHandle;
             log::line("BLE", "sink exit");
         }
 
-        void tick() override
-        {
-            if (state_ == State::Scanning && millis() - last_restart_ms_ > 6000)
-                start_scan_();
-            draw();
-        }
+        void tick() override { draw(); }
 
         void draw() override
         {
-            const char *hdr = "BLE Sink";
-            if (state_ == State::Scanning)
-                hdr = "BLE Sink: pick device";
-            else if (state_ == State::Connecting)
-                hdr = "BLE Sink: connecting";
-            else if (state_ == State::Connected)
-                hdr = "BLE Sink: connected";
-            else if (state_ == State::Error)
-                hdr = "BLE Sink: error";
-
-            flopper::ui::draw_status(Display::get_instance(), hdr);
-
-            if (state_ == State::Scanning)
-            {
-                std::vector<const char *> items;
-                lines_.clear();
-                items.reserve(entries_.size());
-                lines_.reserve(entries_.size());
-                for (auto &e : entries_)
-                {
-                    char buf[96];
-                    snprintf(buf, sizeof(buf), "%s %ddBm %s", e.addr.c_str(), e.rssi, e.name.size() ? e.name.c_str() : "");
-                    lines_.push_back(buf);
-                    items.push_back(lines_.back().c_str());
-                }
-                if (items.empty())
-                    items.push_back("(no devices yet)");
-                flopper::ui::draw_list(Display::get_instance(), items, flopper::ui::clamp_index(selected_, items.size()));
-                return;
-            }
+            flopper::ui::draw_status(Display::get_instance(), connected_ ? "BLE Sink: connected" : "BLE Sink: advertising");
 
             Display::get_instance().fill_rect(0, 30, 240, 210, flopper::ui::BACKGROUND_COLOR);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, status_.c_str(), flopper::ui::TEXT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
-            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, "LEFT=back", flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, "Peripheral sink mode", flopper::ui::TEXT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, connected_ ? "CENTER=notify ping" : "Waiting for a central", connected_ ? flopper::ui::SUCCESS_COLOR : flopper::ui::MUTED_TEXT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 80, status_.c_str(), flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 110, last_message_.c_str(), flopper::ui::TEXT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+            Display::get_instance().draw_text(flopper::ui::MARGIN_X, 140, "LEFT=back", flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
         }
 
         void on_input(InputEvent e) override
@@ -86,130 +72,136 @@ namespace flopper
                 return;
             }
 
-            if (state_ != State::Scanning)
-                return;
-
-            if (flopper::ui::apply_list_nav(e, selected_, entries_.size()))
-                return;
             if (e == InputEvent::CENTER)
             {
-                if (entries_.empty())
-                    return;
-                connect_(entries_[selected_]);
+                if (characteristic_)
+                {
+                    last_message_ = connected_ ? "sink ping" : "not connected";
+                    characteristic_->setValue(last_message_.c_str());
+                    if (connected_)
+                        characteristic_->notify();
+                    status_ = connected_ ? "sent notification" : "not connected";
+                }
+                return;
             }
         }
 
     private:
-        enum class State
-        {
-            Scanning,
-            Connecting,
-            Connected,
-            Error
-        };
+        static constexpr uint16_t kInvalidConnHandle = 0xFFFF;
+        static constexpr const char *kServiceUuid = "F1A0";
+        static constexpr const char *kCharacteristicUuid = "F1A1";
 
-        struct Entry
-        {
-            std::string addr;
-            uint8_t addr_type = 0;
-            std::string name;
-            int rssi = 0;
-        };
-
-        class ScanCallbacks : public NimBLEScanCallbacks
+        class ServerCallbacks : public NimBLEServerCallbacks
         {
         public:
-            explicit ScanCallbacks(BleSinkApp &app) : app_(app) {}
+            explicit ServerCallbacks(BleSinkApp &app) : app_(app) {}
 
-            void onResult(const NimBLEAdvertisedDevice *d) override
+            void onConnect(NimBLEServer *server, NimBLEConnInfo &info) override
             {
-                if (!d)
-                    return;
+                app_.connected_ = true;
+                app_.conn_handle_ = info.getConnHandle();
+                app_.status_ = "connected";
+                if (server)
+                    server->updateConnParams(info.getConnHandle(), 12, 24, 0, 200);
+                log::line("BLE", "sink connected");
+            }
 
-                Entry e;
-                e.addr = d->getAddress().toString();
-                e.addr_type = d->getAddressType();
-                e.name = d->getName();
-                e.rssi = d->getRSSI();
-                app_.upsert_(e);
+            void onDisconnect(NimBLEServer *, NimBLEConnInfo &, int reason) override
+            {
+                app_.connected_ = false;
+                app_.conn_handle_ = kInvalidConnHandle;
+                app_.status_ = "disconnected";
+                if (app_.active_)
+                    NimBLEDevice::startAdvertising();
+                log::printf("BLE", "sink disconnected reason=%d", reason);
             }
 
         private:
             BleSinkApp &app_;
         };
 
-        State state_ = State::Scanning;
-        uint32_t last_restart_ms_ = 0;
-        size_t selected_ = 0;
-
-        std::vector<Entry> entries_;
-        std::vector<std::string> lines_;
-        std::string status_;
-
-        NimBLEClient *client_ = nullptr;
-        ScanCallbacks scan_cb_{*this};
-
-        void upsert_(const Entry &e)
+        class CharacteristicCallbacks : public NimBLECharacteristicCallbacks
         {
-            for (auto &x : entries_)
+        public:
+            explicit CharacteristicCallbacks(BleSinkApp &app) : app_(app) {}
+
+            void onWrite(NimBLECharacteristic *c, NimBLEConnInfo &) override
             {
-                if (x.addr == e.addr)
-                {
-                    x = e;
+                if (!c)
                     return;
-                }
+
+                app_.last_message_ = c->getValue();
+                app_.status_ = "write received";
+                log::printf("BLE", "sink got %u bytes", (unsigned)app_.last_message_.size());
             }
-            entries_.push_back(e);
-            if (entries_.size() > 30)
-                entries_.erase(entries_.begin());
+
+        private:
+            BleSinkApp &app_;
+        };
+
+        bool active_ = false;
+        bool started_ = false;
+        bool connected_ = false;
+        uint16_t conn_handle_ = kInvalidConnHandle;
+
+        NimBLEServer *server_ = nullptr;
+        NimBLEService *service_ = nullptr;
+        NimBLECharacteristic *characteristic_ = nullptr;
+        NimBLEAdvertising *advertising_ = nullptr;
+
+        std::string status_ = "advertising";
+        std::string last_message_ = "sink ready";
+
+        ServerCallbacks server_cb_{*this};
+        CharacteristicCallbacks char_cb_{*this};
+
+        void start_()
+        {
+            server_ = NimBLEDevice::createServer();
+            server_->setCallbacks(&server_cb_, false);
+            server_->advertiseOnDisconnect(false);
+
+            service_ = server_->createService(kServiceUuid);
+            characteristic_ = service_->createCharacteristic(
+                kCharacteristicUuid,
+                NIMBLE_PROPERTY::READ | NIMBLE_PROPERTY::WRITE | NIMBLE_PROPERTY::WRITE_NR | NIMBLE_PROPERTY::NOTIFY);
+            characteristic_->setCallbacks(&char_cb_);
+            characteristic_->setValue(last_message_.c_str());
+            service_->start();
+
+            advertising_ = NimBLEDevice::getAdvertising();
+            advertising_->setName("Flopper Sink");
+            advertising_->addServiceUUID(kServiceUuid);
+            advertising_->enableScanResponse(true);
+
+            started_ = true;
         }
 
-        void start_scan_()
+        void start_advertising_()
         {
-            NimBLEScan *scan = NimBLEDevice::getScan();
-            scan->setScanCallbacks(&scan_cb_, true);
-            scan->setActiveScan(true);
-            scan->setInterval(45);
-            scan->setWindow(15);
-            scan->start(5, false);
-            last_restart_ms_ = millis();
-        }
-
-        void stop_scan_()
-        {
-            NimBLEDevice::getScan()->stop();
-        }
-
-        void connect_(const Entry &target)
-        {
-            stop_scan_();
-            state_ = State::Connecting;
-            status_ = std::string("connecting ") + target.addr;
-            log::printf("BLE", "sink connect %s %s", target.addr.c_str(), target.name.c_str());
-
-            client_ = NimBLEDevice::createClient();
-            if (!client_->connect(NimBLEAddress(target.addr, target.addr_type)))
-            {
-                state_ = State::Error;
-                status_ = "connect failed";
+            if (!advertising_)
                 return;
-            }
 
-            state_ = State::Connected;
-            status_ = std::string("connected ") + target.addr;
+            if (!advertising_->isAdvertising())
+                advertising_->start();
+            status_ = "advertising";
         }
 
-        void stop_all_()
+        void stop_advertising_()
         {
-            stop_scan_();
-            if (client_)
+            if (advertising_ && advertising_->isAdvertising())
+                advertising_->stop();
+        }
+
+        void update_last_message_(const std::string &msg)
+        {
+            last_message_ = msg;
+            if (characteristic_)
             {
-                if (client_->isConnected())
-                    client_->disconnect();
-                NimBLEDevice::deleteClient(client_);
-                client_ = nullptr;
+                characteristic_->setValue(last_message_.c_str());
+                if (connected_)
+                    characteristic_->notify();
             }
-            state_ = State::Scanning;
         }
     };
 }

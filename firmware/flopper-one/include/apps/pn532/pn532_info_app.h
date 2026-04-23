@@ -18,10 +18,11 @@ namespace flopper
 
         void on_enter() override
         {
-            ok_ = pn532::ensure_init();
-            version_ = ok_ ? pn532::dev.getFirmwareVersion() : 0;
-            p3_ = ok_ ? pn532::dev.readGPIO() : 0;
-            p3_out_ = p3_;
+            ok_ = false;
+            first_frame_ = true;
+            version_ = 0;
+            p3_ = 0;
+            p3_out_ = 0;
             selected_ = 0;
             last_poll_ms_ = 0;
             log::line("PN532", "info enter");
@@ -34,7 +35,28 @@ namespace flopper
 
         void tick() override
         {
-            if (ok_ && millis() - last_poll_ms_ > 500)
+            if (first_frame_)
+            {
+                first_frame_ = false;
+                draw();
+                return;
+            }
+
+            if (!ok_)
+            {
+                ok_ = (pn532::tick_init() == pn532::InitState::Ready);
+                if (ok_)
+                {
+                    version_ = pn532::firmware_version;
+                    p3_ = pn532::dev.readGPIO();
+                    p3_out_ = p3_;
+                    last_poll_ms_ = millis();
+                }
+                draw();
+                return;
+            }
+
+            if (millis() - last_poll_ms_ > 500)
             {
                 p3_ = pn532::dev.readGPIO();
                 last_poll_ms_ = millis();
@@ -44,12 +66,21 @@ namespace flopper
 
         void draw() override
         {
-            flopper::ui::draw_status(Display::get_instance(), ok_ ? "PN532 Info" : "PN532 Info (not found)");
+            char title[64];
+            if (ok_)
+                snprintf(title, sizeof(title), "PN532 Info");
+            else
+                snprintf(title, sizeof(title), "PN532 Info (%s)", pn532::init_state_label(pn532::init_state));
+            flopper::ui::draw_status(Display::get_instance(), title);
             Display::get_instance().fill_rect(0, 30, 240, 210, flopper::ui::BACKGROUND_COLOR);
 
             if (!ok_)
             {
-                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40, "No PN532 detected", flopper::ui::TEXT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
+                Display::get_instance().draw_text(flopper::ui::MARGIN_X, 40,
+                                                  pn532::init_state == pn532::InitState::InProgress || pn532::init_state == pn532::InitState::NotStarted
+                                                      ? "Initializing..."
+                                                      : "No PN532 detected",
+                                                  flopper::ui::TEXT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
                 Display::get_instance().draw_text(flopper::ui::MARGIN_X, 60, "LEFT=back", flopper::ui::ACCENT_COLOR, 2, flopper::ui::BACKGROUND_COLOR);
                 return;
             }
@@ -106,6 +137,7 @@ namespace flopper
 
     private:
         bool ok_ = false;
+        bool first_frame_ = true;
         uint32_t version_ = 0;
         uint8_t p3_ = 0;
         uint8_t p3_out_ = 0;

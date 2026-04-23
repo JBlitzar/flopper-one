@@ -38,16 +38,21 @@ namespace flopper
 
             randomSeed(analogRead(0));
             esp_ble_tx_power_set(ESP_BLE_PWR_TYPE_ADV, MAX_TX_POWER);
+            flopper::ble::set_static_random_addr("D3:16:12:34:56:72");
 
             NimBLEServer *pServer = NimBLEDevice::createServer();
             pAdvertising = pServer->getAdvertising();
-
-            ble_addr_t null_addr = {0xFE, 0xED, 0xC0, 0xFF, 0xEE, 0x69};
-            NimBLEDevice::setOwnAddr(NimBLEAddress(null_addr));
         }
 
         void on_exit() override
         {
+            if (pAdvertising)
+                pAdvertising->stop();
+            if (NimBLEDevice::isInitialized())
+                NimBLEDevice::deinit(true);
+            started_ = false;
+            pAdvertising = nullptr;
+            server_ = nullptr;
             log::line("BLE", "sour exit");
         }
 
@@ -55,18 +60,6 @@ namespace flopper
 
         void tick() override
         {
-
-            esp_bd_addr_t dummy_addr = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-            for (int i = 0; i < 6; i++)
-            {
-                dummy_addr[i] = random(256);
-
-                if (i == 0)
-                {
-                    dummy_addr[i] |= 0xF0;
-                }
-            }
-
             NimBLEAdvertisementData oAdvertisementData;
 
             int device_choice = random(2);
@@ -85,22 +78,8 @@ namespace flopper
                     DEVICES[index] + sizeof(DEVICES[index])));
             }
 
-            int adv_type_choice = random(3);
-            if (adv_type_choice == 0)
-            {
-                pAdvertising->setConnectableMode(BLE_GAP_CONN_MODE_UND); // connectable undirected
-            }
-            else if (adv_type_choice == 1)
-            {
-                pAdvertising->setConnectableMode(BLE_GAP_CONN_MODE_UND);
-                pAdvertising->enableScanResponse(true); // scannable
-            }
-            else
-            {
-                pAdvertising->setConnectableMode(BLE_GAP_CONN_MODE_NON); // non-connectable
-            }
-
-            NimBLEDevice::setOwnAddr(dummy_addr);
+            pAdvertising->setConnectableMode(BLE_GAP_CONN_MODE_NON);
+            pAdvertising->enableScanResponse(false);
             pAdvertising->setAdvertisementData(oAdvertisementData);
 
             pAdvertising->setMinInterval(0x20);
@@ -108,34 +87,8 @@ namespace flopper
 
             Serial.println("Sending Advertisement...");
             pAdvertising->start();
-            if (millis() - last_adv_time_ >= delayMilliseconds)
-            {
-                pAdvertising->stop();
-                last_adv_time_ = millis();
-            }
+            delay(delayMilliseconds);
             pAdvertising->stop();
-
-            int rand_val = random(100);
-            if (rand_val < 70)
-            {
-                esp_ble_tx_power_set(ESP_BLE_PWR_TYPE_ADV, MAX_TX_POWER);
-            }
-            else if (rand_val < 85)
-            {
-                esp_ble_tx_power_set(ESP_BLE_PWR_TYPE_ADV, (esp_power_level_t)(MAX_TX_POWER - 1));
-            }
-            else if (rand_val < 95)
-            {
-                esp_ble_tx_power_set(ESP_BLE_PWR_TYPE_ADV, (esp_power_level_t)(MAX_TX_POWER - 2));
-            }
-            else if (rand_val < 99)
-            {
-                esp_ble_tx_power_set(ESP_BLE_PWR_TYPE_ADV, (esp_power_level_t)(MAX_TX_POWER - 3));
-            }
-            else
-            {
-                esp_ble_tx_power_set(ESP_BLE_PWR_TYPE_ADV, (esp_power_level_t)(MAX_TX_POWER - 4));
-            }
         }
 
         void on_input(InputEvent e) override
@@ -155,9 +108,7 @@ namespace flopper
 
         NimBLECharacteristic *input_ = nullptr;
         NimBLEAdvertising *pAdvertising = nullptr;
-        uint32_t delayMilliseconds = 200;
-
-        int last_adv_time_ = 0;
+        uint32_t delayMilliseconds = 20;
 
         static constexpr uint8_t DEVICES[][31] = {
             // Airpods
